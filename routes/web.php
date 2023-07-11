@@ -27,7 +27,7 @@ Route::prefix('LeyContabilidad')
     {
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        Route::get('/descarga/{archivo}', [DescargaController::class,'descargaArchivo'])->name('descargaArchivo');
+        Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 
 
