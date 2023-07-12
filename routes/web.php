@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\DescargaController;
-use Illusminate\Support\Facades\Session;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuardarController;
 use App\Http\Controllers\LeyContabilidadController;
@@ -16,28 +15,19 @@ use App\Http\Controllers\LeyContabilidadController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/prueba',function()
-{
-    return view('prueba');
-    //return redirect()->route('prueba');
+
+Route::get('/', function () {
+    return view('welcome');
 });
-Route::prefix('LeyContabilidad')
-    ->controller(LeyContabilidadController::class)
-    ->group(function()
-    {
-        Route::get('/', 'mostrar')->name('mostrar');
-        Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
-    });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
-Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
-Route::get('/guardarpdf',function()
-{
-    return view('prueba');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
