@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\DescargaController;
 use Illusminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuardarController;
@@ -25,7 +27,7 @@ Route::prefix('LeyContabilidad')
     {
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        Route::get('/descarga/{archivo}', [GuardarController::class,'guardar_pdf'])->name('guardar_pdf');
+        Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 
 

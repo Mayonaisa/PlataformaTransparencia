@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('semestre');
             $table->string('año');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->timestamps();
 
             $table->engine = 'InnoDB';

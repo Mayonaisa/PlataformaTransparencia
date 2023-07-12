@@ -9,14 +9,20 @@ use Illuminate\Routing\Controller as BaseController;
 
 class GuardarController extends Controller
 {
-    function guardar_pdf($filename)
+    function guardar_pdf(Request $request)
     {
-        $file = storage_path('app/carpeta_destino/' . $filename);
+        if($request -> hasFile('documento'))
+        {
+            $archivo = $request->file('documento');
+            $idley = uniqid();
+            $nombreArchivo = $idley .'.'.$archivo->getClientOriginalExtension();
+            $rutaArchivo = $idley .'/'. $nombreArchivo;
+            $archivo->storeAs('carpeta_destino', $nombreArchivo);
 
-        if (file_exists($file)) {
-            return response()->download($file);
-        } else {
-            return response()->json(['error' => 'El archivo no existe.']);
+            session::flash("error","Guardado exitoso");
+            return back()->withInput();
+            //return redirect()->back()->with('flash_message_success', 'Product Images has been added successfully');   
         }
+        //return view('prueba');
     }   
 }

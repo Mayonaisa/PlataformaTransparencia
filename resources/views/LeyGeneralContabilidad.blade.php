@@ -49,7 +49,7 @@
         <div class="Contenedor">
              <p>I. Información contable</p>
              @foreach ($Obligaciones as $key=>$obligacion)
-                 <a href="{{ route('guardar_pdf', ['archivo' => $obligacion->nombre.'.pdf']) }}">{{$obligacion->nombre}}</a>
+                 <a href="{{ route('descargarpdf', ['archivo' => $obligacion->nombre.'.pdf']) }}">{{$obligacion->nombre}}</a>
 
              @endforeach
         </div>
