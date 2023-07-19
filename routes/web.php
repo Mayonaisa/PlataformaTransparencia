@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DescargaController;
+use Illusminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuardarController;
 use App\Http\Controllers\LeyContabilidadController;
@@ -20,14 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
+Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
+Route::get('/guardarpdf',function()
+{
+    return view('prueba');
 });
-
-require __DIR__.'/auth.php';
