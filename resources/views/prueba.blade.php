@@ -15,5 +15,9 @@ session_start();
         <input type="file" name="documento" id="documento" accept="application/pdf">
         <input type="submit" value="guardar">
     </form>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Cerrar sesión</button>
+    </form>
 </body>
 </html>
