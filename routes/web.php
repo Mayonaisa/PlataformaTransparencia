@@ -29,6 +29,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 */
 Route::get('/prueba',function()
 {
+    
     return view('prueba');
 })->middleware(['auth'])->name('prueba'); //esto ultimo es para enviar al login en caso de no existir una sesión
 
