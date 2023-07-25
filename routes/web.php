@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,8 @@ use App\Http\Controllers\Auth\PasswordResetController;
 */
 Route::get('/prueba',function()
 {
-    
-    return view('prueba');
+    $añoActual = Carbon::now()->year;
+    return view('prueba', compact('añoActual'));
 })->middleware(['auth'])->name('prueba'); //esto ultimo es para enviar al login en caso de no existir una sesión
 
 Route::get('/inicio',function()
