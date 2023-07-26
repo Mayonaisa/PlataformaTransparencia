@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
             $table->foreignId('fraccion')->references('id')->on('fracciones');
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->enum('aprovado',['SI','NO'])->default('NO');
+            $table->enum('estado',['subido','aprovado','rechazado'])->default('subido');
             $table->timestamps();
 
             $table->engine = 'InnoDB';
