@@ -13,6 +13,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <main>
@@ -20,7 +21,7 @@ session_start();
             <h1>Ley general de contabilidad gubernamental</h1>
         </header>
         <section>
-            
+            <p></p>
             <form method="POST" action="/guardarpdf" enctype="multipart/form-data">
         @csrf
        
@@ -32,7 +33,7 @@ session_start();
             <div class="select">
                 <select name="option" id="option" required>
                     <option value="option1">I. información contable</option>
-                    <option value="option2">Option 2</option>
+                    <option value="option2" .className="flex">Option 2</option>
                     <option value="option3">Option 3</option>
                     <option value="option4">Option 4</option>
                 </select>

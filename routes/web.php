@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AprobarController;
 use App\Http\Controllers\DescargaController;
 use Illusminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,12 @@ Route::prefix('LeyContabilidad')
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
+    });
+    Route::prefix('aprobar')
+    ->controller(AprobarController::class)
+    ->group(function()
+    {
+        Route::get('/', 'mostrar')->name('mostrar');
     });
 
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
