@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\SubirObligacionController;
 use Illuminate\Support\Carbon;
 
 /*
@@ -50,8 +51,15 @@ Route::prefix('LeyContabilidad')
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
+
     Route::prefix('aprobar')
     ->controller(AprobarController::class)
+    ->group(function()
+    {
+        Route::get('/', 'mostrar')->name('mostrar');
+    });
+    Route::prefix('PortalObligaciones')
+    ->controller(SubirObligacionController::class)
     ->group(function()
     {
         Route::get('/', 'mostrar')->name('mostrar');
