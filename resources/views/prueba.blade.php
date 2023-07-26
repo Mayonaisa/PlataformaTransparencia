@@ -9,15 +9,40 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de utilidades</title>
 </head>
-<body>
-    <form method="POST" action="/guardarpdf" enctype="multipart/form-data">
-    @csrf
-        <input type="file" name="documento" id="documento" accept="application/pdf">
-        <input type="submit" value="guardar">
-    </form>
-    <form method="POST" action="{{ route('logout') }}">
+<body style="background-color: #F5F5F5;justify-content: center;height: 100vh;align-items: center;margin: 0; position: relative;">
+    <div style="background-color: white;display: flex;justify-content: center;align-items: center;height: 40vh;width: 50vw;">
+        <form method="POST" action="/guardarpdf" enctype="multipart/form-data">
         @csrf
-        <button type="submit">Cerrar sesión</button>
-    </form>
+
+            <input type="file" name="documento" id="documento" accept="application/pdf">
+            <input type="submit" value="guardar">
+        </form>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+    <div style="background-color: white;display: grid;height: 40vh;width: 50vw;position: absolute;grid-template-columns: 1fr 1fr;">
+        <div style="background-color: #9e94a6;height: 40vh;">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($fracciones as $key=>$fraccion)
+                <tr>
+                    <th scope="row">{{$key+1}}</th>
+                    <td>{{$fraccion->nombre}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+        <div style="background-color: #b1a6ba;height: 40vh;">
+        </div>
+    </div>
 </body>
 </html>

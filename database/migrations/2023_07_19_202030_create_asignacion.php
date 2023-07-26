@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignacion', function (Blueprint $table) {
-            $table->foreignId('idrol')->references('id')->on('rol');
-            $table->foreignId('idpermiso')->references('id')->on('permiso');
+        Schema::create('asignaciones', function (Blueprint $table) {
+            $table->foreignId('idrol')->references('id')->on('roles');
+            $table->foreignId('idpermiso')->references('id')->on('permisos');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignacion');
+        Schema::dropIfExists('asignaciones');
     }
 };

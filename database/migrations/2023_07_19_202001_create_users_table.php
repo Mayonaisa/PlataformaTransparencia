@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('fragmento')->nullable();
-            $table->foreignId('rol_id')->default(3)->references('id')->on('rol');
+            $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
+            $table->foreignId('rol_id')->default(3)->references('id')->on('roles');
             $table->rememberToken();
             $table->timestamps();
         });

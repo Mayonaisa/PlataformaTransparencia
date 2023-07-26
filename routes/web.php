@@ -31,6 +31,7 @@ Route::get('/prueba',function()
 {
     return view('prueba');
 })->middleware(['auth'])->name('prueba'); //esto ultimo es para enviar al login en caso de no existir una sesión
+Route::get('/prueba', [GuardarController::class,'mostrarUsuarios']); //prueba
 
 Route::get('/inicio',function()
 {
