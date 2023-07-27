@@ -64,7 +64,18 @@ Route::prefix('LeyContabilidad')
     {
         Route::get('/', 'mostrar')->name('mostrar');
     });
-
+    Route::get('/TransparenciaPagina',function()
+    {
+        return view('TransparenciaPiePagina');
+    });
+    Route::get('/CargarObligaciones',function()
+    {
+        return view('CargarObligacion');
+    });
+    Route::get('/prueba2',function()
+    {
+        return view('prueba2');
+    });
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
 Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 Route::get('/guardarpdf',function()

@@ -8,8 +8,6 @@ class AprobarController extends Controller
 {
     function mostrar()
     {   
-    
-        
         return view('aprobar');
     }
 }
