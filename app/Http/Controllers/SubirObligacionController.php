@@ -8,6 +8,6 @@ class SubirObligacionController extends Controller
 {
     function mostrar()
     {   
-        return view('SubirObligaciones');
+        return view('ConsultarFracciones');
     }
 }

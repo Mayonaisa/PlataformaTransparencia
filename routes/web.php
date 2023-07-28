@@ -58,19 +58,23 @@ Route::prefix('LeyContabilidad')
     {
         Route::get('/', 'mostrar')->name('mostrar');
     });
-    Route::prefix('PortalObligaciones')
+    Route::prefix('PortalFracciones')
     ->controller(SubirObligacionController::class)
     ->group(function()
     {
         Route::get('/', 'mostrar')->name('mostrar');
     });
+    Route::get('/PortalFracc',function()
+    {
+        return view('ConsultarFracciones');
+    });
     Route::get('/TransparenciaPagina',function()
     {
         return view('TransparenciaPiePagina');
     });
-    Route::get('/CargarObligaciones',function()
+    Route::get('/CargarFraccion',function()
     {
-        return view('CargarObligacion');
+        return view('CargarFraccion');
     });
     Route::get('/prueba2',function()
     {

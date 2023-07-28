@@ -21,10 +21,10 @@
             <section>
                 <h1 class="text-3xl font-bold text-gray-400 ml-[370px] text-center">Fracciones</h1>
                 <div class="grid grid-cols-1 w-[350px] text-center ml-[380px] mt-7 border-2">
-                    <div class="border-2" id="marcoN">I. El marco normativo aplicable al sujeto obligado, en el que deberá incluirse leyes, códigos, reglamentos, decretos de creación, manuales administrativos, reglas de operación, criterios, políticas, entre otros;</div>
-                    <div class="border-2">II. Su estructura orgánica completa, en un formato que permita vincular cada parte de la estructura, las atribuciones y responsabilidades que le corresponden a cada servidor público, prestador de servicios profesionales o miembro de los sujetos obligados, de conformidad con las disposiciones aplicables;</div>
-                    <div class="border-2">III. Las facultades de cada área;</div>
-                    <div class="border-2">IV. Las metas y objetivos de las áreas de conformidad con sus programas operativos;</div>
+                    <div class="border-2" id="marcoN"><a href="" class=" block">I. El marco normativo aplicable al sujeto obligado, en el que deberá incluirse leyes, códigos, reglamentos, decretos de creación, manuales administrativos, reglas de operación, criterios, políticas, entre otros;</a></div>
+                    <div class="border-2" ><a href="">II. Su estructura orgánica completa, en un formato que permita vincular cada parte de la estructura, las atribuciones y responsabilidades que le corresponden a cada servidor público, prestador de servicios profesionales o miembro de los sujetos obligados, de conformidad con las disposiciones aplicables;</a></div>
+                    <div class="border-2" > <a href="">III. Las facultades de cada área;</a></div>
+                    <div class="border-2"> <a href="">IV. Las metas y objetivos de las áreas de conformidad con sus programas operativos;</a></div>
                     <div class="border-2">Item 3</div>
                     <div class="border-2">Item 3</div>
                     <div class="border-2">Item 3</div>
@@ -38,7 +38,7 @@
             
         <section class="ml-[70px]">
         <p class="text-3xl font-bold text-gray-400 ml-[10px] w-18 mb-7 text-center">fraccion seleccionada</p>
-        <table class="border-2 w-[400px]">
+        <table class="border-2 w-[400px]" id="TablaFraccion">
             <thead>
                 <tr>
                     <th class="border-2"><img src="" alt=""><p>Direccion administrativa y financiera</p> <img src="" alt=""></th>
@@ -50,15 +50,23 @@
                         hola
                     </td>
                 </tr>
+                <tr>
+                    <td>prueba</td>
+                </tr>
+                <tr>
+                    <td>probando</td>
+                </tr>
             </tbody>
         </table>
         </section>
-        <section class="ml-20 mt-20">
+        <section class="ml-20 mt-20 text-center">
             <div>
-                <a href="">subir</a>
+                <p class="text-xl font-bold text-gray-400">subir</p>
+                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
             </div>
             <div class="mt-12">
-                <a href="">Revisar</a>
+                <p class="text-xl font-bold text-gray-400">revisar</p>
+                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
             </div>
         </section>
 
@@ -71,16 +79,19 @@
 </body>
 <script>
     const contenedorTabla = document.getElementById('marcoN');
-    const norm=document.getElementById('normas');
+    const norm=document.getElementById('TablaFraccion');
     contenedorTabla.addEventListener('click',expandirTabla);
     function expandirTabla() {
-        /*
-    if (contenedorTabla.style.display === 'none') {
-        contenedorTabla.style.display = 'block';
-    } else {
-        contenedorTabla.style.display = 'none';
+        const rows = myTable.getElementsByTagName('tr');
+        alert('nomamen');
+    // Toggle visibility of each table row except the first one (header row)
+    for (let i = 1; i < rows.length; i++) {
+      rows[i].classList.toggle('hidden');
     }
-    */
+    sleep(1);
+    for (let i = 1; i < rows.length; i++) {
+      rows[i].classList.toggle('visible');
+    }
 }
 </script>
 </html>
