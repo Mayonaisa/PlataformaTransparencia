@@ -43,7 +43,7 @@ Route::get('/inicio',function()
 
 Route::post('guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 
-Route::prefix('LeyContabilidad')
+Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
     ->group(function()
     {
@@ -88,6 +88,7 @@ Route::prefix('LeyContabilidad')
     {
         return view('PortalPrincipal');
     });
+
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
 Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 Route::get('/guardarpdf',function()

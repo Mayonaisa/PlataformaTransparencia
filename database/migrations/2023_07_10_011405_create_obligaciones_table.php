@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('obligaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('semestre');
+            $table->string('cuatrimestre');
             $table->string('año');
             $table->string('url')->nullable();
             $table->timestamps();

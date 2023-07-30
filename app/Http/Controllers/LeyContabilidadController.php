@@ -15,12 +15,14 @@ class LeyContabilidadController extends Controller
     function mostrar()
     {   
         $Obligaciones=Obligacion::buscarPorTrimestre('1');
-        
-        return view('LeyGeneralContabilidad',['Obligaciones'=>$Obligaciones]);
+        return view('ContabilidadPortal',['Obligaciones'=>$Obligaciones]);
     }
     function trimestre($trimestre)
     {
         $Obligaciones=Obligacion::buscarPorTrimestre($trimestre);
-        return view('LeyGeneralContabilidad',['Obligaciones'=>$Obligaciones]);
+        if ($Obligaciones==null){
+            $Obligaciones= new Obligacion();
+        }
+        return view('ContabilidadPortal',['Obligaciones'=>$Obligaciones]);
     }
 }

@@ -52,6 +52,7 @@
                  <a href="{{ route('descargarpdf', ['archivo' => $obligacion->nombre.'.pdf']) }}">{{$obligacion->nombre}}</a>
 
              @endforeach
+             
         </div>
 
     </div>
