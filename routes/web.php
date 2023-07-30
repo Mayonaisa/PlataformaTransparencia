@@ -72,6 +72,10 @@ Route::prefix('LeyContabilidad')
     {
         return view('TransparenciaPiePagina');
     });
+    Route::get('/PortalCabecera',function()
+    {
+        return view('PortalCabecera');
+    });
     Route::get('/CargarFraccion',function()
     {
         return view('CargarFraccion');
@@ -79,6 +83,10 @@ Route::prefix('LeyContabilidad')
     Route::get('/prueba2',function()
     {
         return view('prueba2');
+    });
+    Route::get('/PortalPrincipal',function()
+    {
+        return view('PortalPrincipal');
     });
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
 Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
