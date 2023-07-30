@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de contabilidad gubernamental</title>
     @vite('resources/css/app.css')
+    <script
+			  src="https://code.jquery.com/jquery-3.7.0.js"
+			  integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+			  crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -30,14 +34,14 @@
                 <p class=" mt-2">Obligaciones trimestrales (Art 48, que remite al Art. 46)</p>
             </div>
             <div class="border-2 w-[100%] h-[5vh] justify-evenly flex text-center text-green-600">
-                <a class="w-[25%] border-r-2 hover:text-green-500 active:border-green-700" href="{{ route('trimestre', ['trimestre' => 1]) }}">1ER TRIMESTRE</a>
-                <a class="w-[25%] border-r-2 hover:text-green-500" href="{{ route('trimestre', ['trimestre' => 2]) }}">2DO TRIMESTRE</a>
-                <a class="w-[25%] border-r-2 hover:text-green-500" href="{{ route('trimestre', ['trimestre' => 3]) }}">3ER TRIMESTRE</a>
-                <a class="w-[25%] hover:text-green-500" href="{{ route('trimestre', ['trimestre' => 4]) }}">4TO TRIMESTRE</a>
+                <a class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 1]) }}">1ER TRIMESTRE</a>
+                <a id="trimestre" class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 2]) }}">2DO TRIMESTRE</a>
+                <a class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 3]) }}">3ER TRIMESTRE</a>
+                <a class="w-[25%] hover:text-green-500 border-b-2 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 4]) }}">4TO TRIMESTRE</a>
                 
             </div>
             <div class="border-x-2">
-            <div class=" bg-green-800 w-[23%] h-2"></div>
+           
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
              <p>I. Información contable</p>
@@ -78,6 +82,31 @@
         function submitForm() {
             document.getElementById('LeyContabilidad').submit();
         }
+
         
+    </script>
+    <script>
+        $(document).ready(function(){
+            /*
+            $('#trimestre').click(function(event){
+                event.preventDefault();
+                let moveButton = $('#trimestre');
+                let moveMe = $('#barra');
+                let pos=moveButton.offset();
+                let distanceX = pos.left - moveMe.offset().left;
+                let distanceY = pos.top - moveMe.offset().top;
+
+                console.log(pos);
+
+                moveMe.animate({
+                    'left': '100px',
+                }, 1000, function() {
+                    // Animation complete - reset the div's position
+                    
+                });       
+            });
+             <div class=" bg-green-800 w-[23%] h-2" id="barra"></div>
+            */
+        });
     </script>
 </html>
