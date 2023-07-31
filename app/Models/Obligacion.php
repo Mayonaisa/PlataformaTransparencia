@@ -23,7 +23,6 @@ class Obligacion extends Model
         'aprovado',
         'created_at',
         'updated_at',
-        // Otros campos que desees permitir la asignación masiva (mass assignment)
     ];
 
     public function usuario()

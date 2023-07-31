@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AprobarController;
 use App\Http\Controllers\DescargaController;
 use Illusminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,8 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\SubirObligacionController;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +32,8 @@ use App\Http\Controllers\Auth\PasswordResetController;
 */
 Route::get('/prueba',function()
 {
-    return view('prueba');
+    $añoActual = Carbon::now()->year;
+    return view('prueba', compact('añoActual'));
 })->middleware(['auth'])->name('prueba'); //esto ultimo es para enviar al login en caso de no existir una sesión
 Route::get('/prueba', [GuardarController::class,'mostrarUsuarios']); //prueba
 
@@ -49,6 +53,30 @@ Route::prefix('LeyContabilidad')
         Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 
+    Route::prefix('aprobar')
+    ->controller(AprobarController::class)
+    ->group(function()
+    {
+        Route::get('/', 'mostrar')->name('mostrar');
+    });
+    Route::prefix('PortalFracciones')
+    ->controller(SubirObligacionController::class)
+    ->group(function()
+    {
+        Route::get('/', 'mostrar')->name('mostrar');
+    });
+    Route::get('/PortalFracc',function()
+    {
+        return view('ConsultarFracciones');
+    });
+    Route::get('/TransparenciaPagina',function()
+    {
+        return view('TransparenciaPiePagina');
+    });
+    Route::get('/prueba2',function()
+    {
+        return view('prueba2');
+    });
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
 Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 Route::get('/guardarpdf',function()

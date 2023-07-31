@@ -8,6 +8,12 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de utilidades</title>
+    <link rel="stylesheet" href="{{ asset('css/SubirArchivos.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
+    
 </head>
 <body style="background-color: #F5F5F5;justify-content: center;height: 100vh;align-items: center;margin: 0; position: relative;">
     <div style="background-color: white;display: flex;justify-content: center;align-items: center;height: 40vh;width: 50vw;">

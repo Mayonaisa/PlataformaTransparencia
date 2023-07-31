@@ -1,0 +1,119 @@
+body{
+    font-family: 'Inter', sans-serif;
+    
+}
+body .select{
+    color: rgb(255, 255, 255);
+    
+}
+h1{
+    color: rgb(34, 163, 47);
+    font-size: 40px;
+}
+.fecha h2{
+    color: rgb(118, 118, 118);
+    font-weight:800;
+    font-size: 36px;
+
+}
+.fecha h3{
+    color: rgb(170, 170, 170);
+    align-self: center;
+    margin-top: 25px;
+}
+.fecha{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section{
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+}
+article{
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+    
+}
+    
+form  div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+section  .Guardar{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: center;
+}
+select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #97a6a3;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color:#fff;
+    cursor:pointer;
+    font-size: 1em;
+ }
+ select::-ms-expand {
+    display: none;
+ }
+ .select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #74817f;
+    overflow: hidden;
+    border-radius: .25em;
+ }
+ .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #2b2e2e;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+ }
+ .select:hover::after {
+    color: #12da4a;
+ }
+.Obligacion{
+
+}
+.btnSubir{
+
+}
+.nombreDocu{
+    
+}
+main{
+
+}
