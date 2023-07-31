@@ -33,15 +33,15 @@
             <div class="border-2 w-[100%] h-10 text-left">
                 <p class=" mt-2">Obligaciones trimestrales (Art 48, que remite al Art. 46)</p>
             </div>
-            <div class="border-2 w-[100%] h-[5vh] justify-evenly flex text-center text-green-600">
-                <a class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 1]) }}">1ER TRIMESTRE</a>
-                <a id="trimestre" class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 2]) }}">2DO TRIMESTRE</a>
-                <a class="w-[25%] border-r-2 border-b-2 hover:text-green-500 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 3]) }}">3ER TRIMESTRE</a>
-                <a class="w-[25%] hover:text-green-500 border-b-2 active:border-b-green-700 active:text-green-700" href="{{ route('trimestre', ['trimestre' => 4]) }}">4TO TRIMESTRE</a>
+            <div class="border-x-2 w-[100%] h-[5vh] justify-evenly flex text-center text-green-600 mt-2">
+                <a id="tri1" class=" tri w-[25%]   hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 1]) }}">1ER TRIMESTRE</a>
+                <a id="tri2"  class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 2]) }}">2DO TRIMESTRE</a>
+                <a id="tri3" class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 3]) }}">3ER TRIMESTRE</a>
+                <a id="tri4" class=" tri w-[25%] hover:text-green-500   active:text-green-300" href="{{ route('trimestre', ['trimestre' => 4]) }}">4TO TRIMESTRE</a>
                 
             </div>
             <div class="border-x-2">
-           
+            <div class=" bg-green-800 w-[25%] h-[4px] -mt-1 rounded-lg transition-transform" id="barra"></div>
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
              <p>I. Información contable</p>
@@ -83,30 +83,65 @@
             document.getElementById('LeyContabilidad').submit();
         }
 
-        
     </script>
     <script>
         $(document).ready(function(){
-            /*
-            $('#trimestre').click(function(event){
+            let todos=$('.tri')
+            $('#tri1').click(function(event){
                 event.preventDefault();
-                let moveButton = $('#trimestre');
+                let moveButton = $(this);
                 let moveMe = $('#barra');
-                let pos=moveButton.offset();
-                let distanceX = pos.left - moveMe.offset().left;
-                let distanceY = pos.top - moveMe.offset().top;
 
-                console.log(pos);
+                todos.removeClass('text-green-800');
+                this.classList.add('text-green-800');
+                
+               
 
                 moveMe.animate({
-                    'left': '100px',
-                }, 1000, function() {
-                    // Animation complete - reset the div's position
+                    'margin-left': '0px'
                     
-                });       
+                }, 100);       
             });
-             <div class=" bg-green-800 w-[23%] h-2" id="barra"></div>
-            */
+            $('#tri2').click(function(event){
+                event.preventDefault();
+                let moveButton = $(this);
+                let moveMe = $('#barra');
+                
+                todos.removeClass('text-green-800');
+                this.classList.add('text-green-800');
+                
+                
+
+                moveMe.animate({
+                    'margin-left': '25%'
+                }, 100);       
+            });
+            $('#tri3').click(function(event){
+                event.preventDefault();
+                let moveButton = $(this);
+                let moveMe = $('#barra');
+
+                todos.removeClass('text-green-800');
+                this.classList.add('text-green-800');
+
+                moveMe.animate({
+                    'margin-left': '50%'
+                }, 100);       
+            });
+            $('#tri4').click(function(event){
+                event.preventDefault();
+                let moveButton = $(this);
+                let moveMe = $('#barra');
+
+                todos.removeClass('text-green-800');
+                this.classList.add('text-green-800');
+                
+                moveMe.animate({
+                    'margin-left': '75%'
+                }, 100);       
+            });
+             
+            
         });
     </script>
 </html>
