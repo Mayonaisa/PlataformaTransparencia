@@ -15,12 +15,13 @@ class Obligacion extends Model
 
     protected $fillable = [
         'nombre',
+        'descripcion',
         'semestre',
         'año',
         'fragmento',
         'fraccion',
         'user_id',
-        'aprovado',
+        'estado',
         'created_at',
         'updated_at',
     ];

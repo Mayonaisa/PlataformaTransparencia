@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Http\Requests\RequestGuardar;
 use App\Models\User;
 use App\Models\Obligacion;
 use App\Models\Fraccion;
 use App\Models\Fragmento;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller as BaseController;
 
@@ -27,13 +29,50 @@ class GuardarController extends Controller
     //         return back()->withInput();  
     //     }
     // }
-    function guardar_pdf(Request $request)
+    function guardar_pdf(Request $request)//prueba
     {
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
 
         }
+    }
+    function guardar_archivo(RequestGuardar $request)
+    {
+        $nombre = Fragmento::distinct()
+        ->select('fragmentos.nombre')
+        ->from('fragmentos')
+        ->join('users','fragmentos.id','=','users.fragmento')
+        ->where('users.id',Auth::id())
+        ->first();
+        $fragmento = Fragmento::distinct()
+        ->select('fragmentos.id')
+        ->from('fragmentos')
+        ->join('users','fragmentos.id','=','users.fragmento')
+        ->where('users.id',Auth::id())
+        ->first();
+
+        $obligacion = new Obligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
+        $obligacion->nombre = $request['titulo'];
+        $obligacion->descripcion = $request['descripcion'];
+        $obligacion->semestre = 0;
+        $obligacion->año = 0;
+        $obligacion->fragmento = $fragmento->id;
+        $obligacion->fraccion = $request['fraccion_id'];
+        $obligacion->articulo = '75'; //temporal, luego seria un session articulo
+        $obligacion->user_id = Auth::id();
+        $obligacion->save();
+
+        if($request -> hasFile('documento'))
+        {
+            $archivo = $request->file('documento');
+            $ruta = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
+            $archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
+        }
+
+        Session::flash("error","Registro exitoso.");
+        return back()->withInput();
+
     }
 
     public function mostrarUsuarios() //prueba
