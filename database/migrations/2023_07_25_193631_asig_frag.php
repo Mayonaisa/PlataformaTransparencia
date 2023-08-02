@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permisos', function (Blueprint $table) {
-            $table->id();
-            $table->enum('tipo',['CARGA','REVISION']);
-
-            $table->engine = 'InnoDB';
-            $table->charset = 'latin1';
-            $table->collation = 'latin1_swedish_ci';
+        Schema::create('asig_frags', function (Blueprint $table) {
+            $table->foreignId('idfragmento')->references('id')->on('fragmentos');
+            $table->foreignId('idfraccion')->references('id')->on('fracciones');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permisos');
+        Schema::dropIfExists('asig_frags');
     }
 };

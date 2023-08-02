@@ -5,6 +5,7 @@ use App\Http\Controllers\DescargaController;
 use Illusminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuardarController;
+use App\Http\Controllers\FraccionesController;
 use App\Http\Controllers\LeyContabilidadController;
 
 //
@@ -35,6 +36,7 @@ Route::get('/prueba',function()
     $añoActual = Carbon::now()->year;
     return view('prueba', compact('añoActual'));
 })->middleware(['auth'])->name('prueba'); //esto ultimo es para enviar al login en caso de no existir una sesión
+Route::get('/prueba', [GuardarController::class,'mostrarUsuarios']); //prueba
 
 Route::get('/inicio',function()
 {
@@ -43,31 +45,36 @@ Route::get('/inicio',function()
 
 Route::post('guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 
+//subir archivo----------------------------------------------------------------------------
+Route::post('/guardararchivo', [GuardarController::class,'guardar_archivo'])->name('guardararchivo');
+//mostrar las obligaciones-----------------------------------------------------------------
+Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desplegar');
+//descarga---------------------------------------------------------------------------------
+Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
+
+
 Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
     ->group(function()
     {
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
+        //Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 
-    Route::prefix('aprobar')
-    ->controller(AprobarController::class)
-    ->group(function()
-    {
-        Route::get('/', 'mostrar')->name('mostrar');
-    });
-    Route::prefix('PortalFracciones')
-    ->controller(SubirObligacionController::class)
-    ->group(function()
-    {
-        Route::get('/', 'mostrar')->name('mostrar');
-    });
-    Route::get('/PortalFracc',function()
-    {
-        return view('ConsultarFracciones');
-    });
+// Route::prefix('aprobar')
+//     ->controller(AprobarController::class)
+//     ->group(function()
+//     {
+//         Route::get('/', 'mostrar')->name('mostrar');
+//     });
+// Route::prefix('PortalFracciones')
+//     ->controller(SubirObligacionController::class)
+//     ->group(function()
+//     {
+//         Route::get('/', 'mostrar')->name('mostrar');
+//     });
+    
     Route::get('/TransparenciaPagina',function()
     {
         return view('TransparenciaPiePagina');
@@ -75,10 +82,6 @@ Route::prefix('ContabilidadPortal')
     Route::get('/PortalCabecera',function()
     {
         return view('PortalCabecera');
-    });
-    Route::get('/CargarFraccion',function()
-    {
-        return view('CargarFraccion');
     });
     Route::get('/prueba2',function()
     {
@@ -100,5 +103,20 @@ Route::get('/guardarpdf',function()
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    //consultar fracciones---------------------------------------------------------------
+    Route::get('/PortalFracc',function()
+    {
+        return view('ConsultarFracciones');
+    });
+    Route::get('/PortalFracc', [FraccionesController::class,'mostrarFracciones']);
+    //subir fracciones---------------------------------------------------------------
+    // Route::get('/CargarFraccion', function () {
+    //          return view('CargarFraccion');
+    //      })->name('CargarFraccion');
+    // Route::get('/CargarFraccion', [FraccionesController::class,'FraccionesDisp'])->name('CargarDatos');
+    Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
+});
 
 require __DIR__.'/auth.php';

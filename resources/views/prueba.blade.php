@@ -15,55 +15,40 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
     
 </head>
-<body>
-    <main>
-        <header>
-            <h1>Ley general de contabilidad gubernamental</h1>
-        </header>
-        <section>
-            <p></p>
-            <form method="POST" action="/guardarpdf" enctype="multipart/form-data">
+<body style="background-color: #F5F5F5;justify-content: center;height: 100vh;align-items: center;margin: 0; position: relative;">
+    <div style="background-color: white;display: flex;justify-content: center;align-items: center;height: 40vh;width: 50vw;">
+        <form method="POST" action="/guardarpdf" enctype="multipart/form-data">
         @csrf
-       
-            <div class="fecha">
-                    <h2>{{$añoActual}}</h2>
-                    <h3>1er trimestre</h3>
-            </div>
 
-            <div class="select">
-                <select name="option" id="option" required>
-                    <option value="option1">I. información contable</option>
-                    <option value="option2" .className="flex">Option 2</option>
-                    <option value="option3">Option 3</option>
-                    <option value="option4">Option 4</option>
-                </select>
-            </div>
-
-            <div>
-            <input type="file" name="documento" id="documento" accept="application/pdf" required>
-            </div>
-        
-            <div>
-            <label for="nombreDocu">Nombre del documento</label>
-            <input type="text" name="nombreDocu" id="">
-            </div>
-
-            <div class="Guardar">
-            <label for="guardado">Subir</label>
-            <input type="submit" value="guardar" name="guardado">
-            </div>
-            
+            <input type="file" name="documento" id="documento" accept="application/pdf">
+            <input type="submit" value="guardar">
         </form>
-        </section>
-
-        <section>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit">Cerrar sesión</button>
-            </form>
-        </section>
-    
-    </main>
-    
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+    <div style="background-color: white;display: grid;height: 40vh;width: 50vw;position: absolute;grid-template-columns: 1fr 1fr;">
+        <div style="background-color: #9e94a6;height: 40vh;">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($fracciones as $key=>$fraccion)
+                <tr>
+                    <th scope="row">{{$key+1}}</th>
+                    <td>{{$fraccion->nombre}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+        <div style="background-color: #b1a6ba;height: 40vh;">
+        </div>
+    </div>
 </body>
 </html>

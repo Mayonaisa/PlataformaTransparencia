@@ -11,17 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obligaciones', function (Blueprint $table) {
+        Schema::create('fracciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('cuatrimestre');
-            $table->string('año');
-            $table->string('url')->nullable();
-            $table->timestamps();
-
-            $table->engine = 'InnoDB';
-            $table->charset = 'latin1';
-            $table->collation = 'latin1_swedish_ci';
         });
     }
 
@@ -30,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obligaciones');
+        Schema::dropIfExists('fracciones');
     }
 };
