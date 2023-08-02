@@ -47,6 +47,10 @@ Route::post('guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guard
 
 //subir archivo----------------------------------------------------------------------------
 Route::post('/guardararchivo', [GuardarController::class,'guardar_archivo'])->name('guardararchivo');
+//mostrar las obligaciones-----------------------------------------------------------------
+Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desplegar');
+//descarga---------------------------------------------------------------------------------
+Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
 
 Route::prefix('LeyContabilidad')
     ->controller(LeyContabilidadController::class)
@@ -54,7 +58,7 @@ Route::prefix('LeyContabilidad')
     {
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
+        //Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 
 // Route::prefix('aprobar')

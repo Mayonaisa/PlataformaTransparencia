@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->enum('estado',['subido','aprovado','rechazado'])->default('subido');
             $table->enum('articulo',[75,76])->default(75);
+            $table->string('archivo');
+            $table->string('direccion');
             $table->timestamps();
 
             $table->engine = 'InnoDB';

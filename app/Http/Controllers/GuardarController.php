@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Obligacion;
 use App\Models\Fraccion;
 use App\Models\Fragmento;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
@@ -61,13 +62,18 @@ class GuardarController extends Controller
         $obligacion->fraccion = $request['fraccion_id'];
         $obligacion->articulo = '75'; //temporal, luego seria un session articulo
         $obligacion->user_id = Auth::id();
+        $obligacion->created_at = Carbon::now()->toDateTimeString();
+        $obligacion->updated_at = Carbon::now()->toDateTimeString();
+        $obligacion->archivo = $request->file('documento')->getClientOriginalName();
+        $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         $obligacion->save();
 
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
-            $ruta = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
-            $archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
+            $ruta = $obligacion->direccion;
+            //$archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
+            $archivo->storeAs($ruta, $request->file('documento')->getClientOriginalName());
         }
 
         Session::flash("error","Registro exitoso.");
