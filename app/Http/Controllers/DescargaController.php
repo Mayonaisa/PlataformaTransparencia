@@ -11,7 +11,6 @@ class DescargaController extends Controller
         $file = storage_path('app/carpeta_destino/' . $filename);
         if (file_exists($file)) {
             return response()->download($file);
-            //return back()->withInput($filename);
         } else {
             return response()->json(['error' => 'El archivo no existe.']);
         }
