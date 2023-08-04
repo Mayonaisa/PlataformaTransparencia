@@ -24,8 +24,8 @@ class DescargaController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="' . $nombreArchivo . '"',
             ];
-            $urlDescarga = response()->download($file, $nombreArchivo, $headers)->getFile()->getPathname();
-            return response()->json(['downloadUrl' => $urlDescarga]);
+            //$urlDescarga = response()->download($file, $nombreArchivo, $headers)->getFile()->getPathname();
+            return response()->download($file, $nombreArchivo, $headers);
         } else {
             return response()->json(['error' => 'El archivo no existe.']);
         }

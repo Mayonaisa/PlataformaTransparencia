@@ -108,7 +108,7 @@ session_start();
                   obli.descripcion +
                   "    </p><a style='padding: 0; color:#16a340;' data-id='" +
                   obli.id +
-                  "'>" +
+                  "' href='/descarga/"+obli.id+"'>" +
                   obli.archivo +
                   "</a>";
                 tabla.appendChild(fra2);
