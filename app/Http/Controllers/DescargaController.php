@@ -16,8 +16,10 @@ class DescargaController extends Controller
         ->where('id',$id)
         ->first();
 
+
         $file = storage_path('app/'.($obligacion->direccion).'/'.($obligacion->archivo));
         $dir = 'app/'.($obligacion->direccion).'/'.($obligacion->archivo);
+        dump($file);
         if (file_exists($file)) {
             $nombreArchivo = $obligacion->archivo;
             $headers = [

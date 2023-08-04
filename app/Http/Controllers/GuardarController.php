@@ -67,7 +67,6 @@ class GuardarController extends Controller
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         $obligacion->save();
-
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');

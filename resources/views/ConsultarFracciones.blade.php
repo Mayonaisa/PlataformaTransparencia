@@ -64,9 +64,7 @@ session_start();
     </footer>
 </body>
 <script>
-    //function getDownloadUrl(obliId) {
-    //    return "{{ route('descargarpdf', ['archivo' => "+ obliId +"]) }}"   ;
-    //}
+
 
     $(document).ready(function() {
   const divs = document.querySelectorAll('.border-2');

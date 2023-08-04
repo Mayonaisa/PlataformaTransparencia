@@ -59,6 +59,7 @@ Route::prefix('ContabilidadPortal')
     {
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
+        //Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
         //Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
     });
 

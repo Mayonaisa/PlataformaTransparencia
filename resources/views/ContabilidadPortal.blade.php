@@ -41,12 +41,12 @@
                 
             </div>
             <div class="border-x-2">
-            <div class=" bg-green-800 w-[25%] h-[4px] -mt-1 rounded-lg transition-transform" id="barra"></div>
+            
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
              <p>I. Información contable</p>
              @foreach ($Obligaciones as $key=>$obligacion)
-                 <a href="{{ route('descargarpdf', ['archivo' => $obligacion->nombre.'.pdf']) }}">{{$obligacion->nombre}}</a>
+                 <a href="{{ route('descargarpdf', $obligacion->id) }}">{{$obligacion->nombre}}</a>
 
              @endforeach
              
@@ -86,9 +86,10 @@
     </script>
     <script>
         $(document).ready(function(){
+            /*
             let todos=$('.tri')
-            $('#tri1').click(function(event){
-                event.preventDefault();
+            $('#tri1').click(function(){
+                <div class=" bg-green-800 w-[25%] h-[4px] -mt-1 rounded-lg transition-transform" id="barra"></div>
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -100,10 +101,11 @@
                 moveMe.animate({
                     'margin-left': '0px'
                     
-                }, 100);       
+                }, 100);
+                      
             });
-            $('#tri2').click(function(event){
-                event.preventDefault();
+            $('#tri2').click(function(){
+                
                 let moveButton = $(this);
                 let moveMe = $('#barra');
                 
@@ -117,7 +119,7 @@
                 }, 100);       
             });
             $('#tri3').click(function(event){
-                event.preventDefault();
+               
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -129,7 +131,7 @@
                 }, 100);       
             });
             $('#tri4').click(function(event){
-                event.preventDefault();
+                
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -140,6 +142,7 @@
                     'margin-left': '75%'
                 }, 100);       
             });
+            */
              
             
         });
