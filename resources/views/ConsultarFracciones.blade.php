@@ -112,27 +112,6 @@ session_start();
                   obli.archivo +
                   "</a>";
                 tabla.appendChild(fra2);
-
-                // Agregar evento click al elemento <a> creado
-                const link = fra2.querySelector('a');
-                link.addEventListener('click', function(event) {
-                  event.preventDefault();
-                  const obliId = this.getAttribute('data-id');
-                  // Realizar la segunda petición AJAX para descargar el archivo
-                  $.ajax({
-                    url: "/descarga/" + obliId,
-                    type: "GET",
-                    success: function(response) {
-                      // Descargar el archivo o procesar la respuesta de descarga
-                      console.log("Archivo descargado");
-                      // Por ejemplo, si quieres redirigir al archivo para que se descargue directamente:
-                      window.location.href = response.downloadUrl;
-                    },
-                    error: function(xhr, status, error) {
-                      console.log("Error en la petición de descarga:", error);
-                    }
-                  });
-                });
               }
             });
           });
