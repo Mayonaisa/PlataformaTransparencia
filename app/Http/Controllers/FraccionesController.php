@@ -36,11 +36,13 @@ class FraccionesController extends Controller
     }
     public function desplegar(Request $request)
     {
+        $tipo = $request['tipo'];
         $id = $request['fraccion_id'];
         $obligacion = Obligacion::distinct()
         ->select('id','nombre','descripcion','archivo','updated_at','fragmento')
         ->from('obligaciones')
         ->where('fraccion',$id)
+        ->where('estado', $tipo)
         ->get();
 
         $fragmento = Fragmento::distinct()
@@ -48,12 +50,30 @@ class FraccionesController extends Controller
         ->from('fragmentos')
         ->join('obligaciones','fragmentos.id','=','obligaciones.fragmento')
         ->where('obligaciones.fraccion',$id)
+        ->where('obligaciones.estado',$tipo)
         ->get();
-        //return view('ConsultarFracciones', compact('obligacion','fragmento'));
         $resultado = [
             'obligacion' => $obligacion,
             'fragmento' => $fragmento,
         ];
         return response()->json($resultado);
+        // $id = $request['fraccion_id'];
+        // $obligacion = Obligacion::distinct()
+        // ->select('id','nombre','descripcion','archivo','updated_at','fragmento')
+        // ->from('obligaciones')
+        // ->where('fraccion',$id)
+        // ->get();
+
+        // $fragmento = Fragmento::distinct()
+        // ->select('fragmentos.nombre','fragmentos.id')
+        // ->from('fragmentos')
+        // ->join('obligaciones','fragmentos.id','=','obligaciones.fragmento')
+        // ->where('obligaciones.fraccion',$id)
+        // ->get();
+        // $resultado = [
+        //     'obligacion' => $obligacion,
+        //     'fragmento' => $fragmento,
+        // ];
+        // return response()->json($resultado);
     }
 }
