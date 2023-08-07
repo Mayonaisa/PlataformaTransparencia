@@ -18,6 +18,12 @@ class FraccionesController extends Controller
         $fracciones = Fraccion::all();
         return view('ConsultarFracciones', compact('fracciones'));
     }
+    public function RevisarFracc() //prueba
+    {
+        $fracciones = Fraccion::all();
+        return view('RevisarFracciones', compact('fracciones'));
+    }
+
     public function FraccionesDisp()
     {
         $departamento = Fragmento::distinct()

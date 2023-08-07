@@ -21,7 +21,7 @@
             <div class=" w-18">
             <form id='subir' method="POST" action="{{route('guardararchivo')}}" enctype="multipart/form-data">
             @csrf
-                <select name="option" id="option" required class="">
+                <select class=" w-[420px]" name="option" id="option" required class="">
                     @foreach ($fracciones as $key=>$fraccion)
                     <option value='{{$fraccion->id}}'>{{$fraccion->nombre}}</option>
                     @endforeach

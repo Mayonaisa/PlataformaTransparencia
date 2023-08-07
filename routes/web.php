@@ -92,6 +92,21 @@ Route::prefix('ContabilidadPortal')
     {
         return view('PortalPrincipal');
     });
+    Route::middleware('auth')->group(function () {
+        //consultar fracciones---------------------------------------------------------------
+        Route::get('/RevisarFracciones',function()
+        {
+            return view('RevisarFracciones');
+        });
+        Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracciones']);
+        //subir fracciones---------------------------------------------------------------
+        // Route::get('/CargarFraccion', function () {
+        //          return view('CargarFraccion');
+        //      })->name('CargarFraccion');
+        // Route::get('/CargarFraccion', [FraccionesController::class,'FraccionesDisp'])->name('CargarDatos');
+        Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
+    });
+    
 
 Route::post('/LeyContabilidad', [LeyContabilidadController::class,'change_year'])->name('change_year');
 Route::post('/guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
@@ -118,6 +133,8 @@ Route::middleware('auth')->group(function () {
     //      })->name('CargarFraccion');
     // Route::get('/CargarFraccion', [FraccionesController::class,'FraccionesDisp'])->name('CargarDatos');
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
+    
+    Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 });
 
 require __DIR__.'/auth.php';
