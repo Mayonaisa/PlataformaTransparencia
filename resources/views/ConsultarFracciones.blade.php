@@ -66,7 +66,7 @@ session_start();
 <script>
 
 
-    $(document).ready(function() {
+  $(document).ready(function() {
   const divs = document.querySelectorAll('.border-2');
   const fraccionIdInput = document.getElementById('fraccion_id');
   const tabla = document.getElementById('divFrac');
@@ -80,7 +80,8 @@ session_start();
         type: "POST",
         data: {
           _token: "{{ csrf_token() }}",
-          fraccion_id: fraccionIdInput.value
+          fraccion_id: fraccionIdInput.value,
+          tipo: "aprobado"
         },
         success: function(response) {
           var obligacion = response.obligacion;

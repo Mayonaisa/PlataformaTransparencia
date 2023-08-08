@@ -52,6 +52,10 @@ Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desp
 //descarga---------------------------------------------------------------------------------
 Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
 
+//aprovar----------------------------------------------------------------------------------
+Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
+//rechazar---------------------------------------------------------------------------------
+Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
 
 Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
@@ -128,13 +132,11 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/PortalFracc', [FraccionesController::class,'mostrarFracciones']);
     //subir fracciones---------------------------------------------------------------
-    // Route::get('/CargarFraccion', function () {
-    //          return view('CargarFraccion');
-    //      })->name('CargarFraccion');
-    // Route::get('/CargarFraccion', [FraccionesController::class,'FraccionesDisp'])->name('CargarDatos');
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
+
+    Route::get('/AprobarObligacion', [AprobarController::class, 'mostrar']);
 });
 
 require __DIR__.'/auth.php';

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
             $table->foreignId('fraccion')->references('id')->on('fracciones');
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->enum('estado',['subido','aprovado','rechazado'])->default('subido');
+            $table->enum('estado',['subido','aprobado','rechazado'])->default('subido');
             $table->enum('articulo',[75,76])->default(75);
             $table->string('archivo');
             $table->string('direccion');
