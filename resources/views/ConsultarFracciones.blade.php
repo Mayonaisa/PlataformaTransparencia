@@ -86,7 +86,7 @@ session_start();
         success: function(response) {
           var obligacion = response.obligacion;
           var fragmento = response.fragmento;
-
+          
           fragmento.forEach(function(fragm) {
             const fra = document.createElement('div');
             fra.setAttribute('class', 'border');

@@ -75,7 +75,8 @@ session_start();
         type: "POST",
         data: {
           _token: "{{ csrf_token() }}",
-          fraccion_id: fraccionIdInput.value
+          fraccion_id: fraccionIdInput.value,
+          tipo: "subido"
         },
         success: function(response) {
           var obligacion = response.obligacion;
@@ -109,8 +110,8 @@ session_start();
                       "</a>"+
                     "</div>"+
                     "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
-                      "<a class='w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-green-400 active:bg-green-200  bg-green-300' href=''><img class=' w-6 h-6' src='{{ asset('imagenes/Confirmar.png') }}' alt=''></a>"+
-                      "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href=''> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
+                      "<a class='w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-green-400 active:bg-green-200  bg-green-300' href='/aprobar/"+obli.id +"'><img class=' w-6 h-6' src='{{ asset('imagenes/Confirmar.png') }}' alt=''></a>"+
+                      "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
                     "</div>"+
                   "</div>";
                   

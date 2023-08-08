@@ -50,7 +50,6 @@ class FraccionesController extends Controller
         ->where('fraccion',$id)
         ->where('estado', $tipo)
         ->get();
-
         $fragmento = Fragmento::distinct()
         ->select('fragmentos.nombre','fragmentos.id')
         ->from('fragmentos')
@@ -62,6 +61,7 @@ class FraccionesController extends Controller
             'obligacion' => $obligacion,
             'fragmento' => $fragmento,
         ];
+        
         return response()->json($resultado);
         // $id = $request['fraccion_id'];
         // $obligacion = Obligacion::distinct()
