@@ -92,10 +92,7 @@ Route::prefix('ContabilidadPortal')
     {
         return view('prueba2');
     });
-    Route::get('/PortalPrincipal',function()
-    {
-        return view('PortalPrincipal');
-    });
+    
     Route::middleware('auth')->group(function () {
         //consultar fracciones---------------------------------------------------------------
         Route::get('/RevisarFracciones',function()
@@ -126,17 +123,22 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     //consultar fracciones---------------------------------------------------------------
-    Route::get('/PortalFracc',function()
-    {
-        return view('ConsultarFracciones');
-    });
-    Route::get('/PortalFracc', [FraccionesController::class,'mostrarFracciones']);
+    // Route::get('/PortalFracc',function()
+    // {
+    //     return view('ConsultarFracciones');
+    // });
+    Route::get('/PortalFracc/{articulo}', [FraccionesController::class,'mostrarFracciones']);
     //subir fracciones---------------------------------------------------------------
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-    Route::get('/AprobarObligacion', [AprobarController::class, 'mostrar']);
+    //Route::get('/AprobarObligacion', [AprobarController::class, 'mostrar'])->name('AprobarObligacion');
+    //principal
+    Route::get('/PortalPrincipal',function()
+    {
+        return view('PortalPrincipal');
+    });
 });
 
 require __DIR__.'/auth.php';

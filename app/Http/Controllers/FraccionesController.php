@@ -13,15 +13,37 @@ use Illuminate\Support\Facades\Auth;
 
 class FraccionesController extends Controller
 {
-    public function mostrarFracciones() //prueba
+    public function mostrarFracciones($articulo) //prueba
     {
-        $fracciones = Fraccion::all();
+        Session::put('ley', $articulo);
+        //$fracciones = Fraccion::all();
+
+        $fracciones = Fraccion::distinct()
+        ->select('fracciones.nombre','fracciones.id')
+        ->from('fracciones')
+        ->where('fracciones.articulo',$articulo)
+        ->get();
+        // $nombre = array("adaw", "adwd", "adwd", "awdwad");
+        // $id = array(1, 2, 3, 4);
+        // $algo = "no";
+        // if (Session::has('ley')) {
+        //     $algo = "si";
+        // }
+        // $variablesDeSesion = Session::all();
+
+        // $fracciones = array_keys($variablesDeSesion);
+
         return view('ConsultarFracciones', compact('fracciones'));
     }
     public function RevisarFracc() //prueba
     {
-        $fracciones = Fraccion::all();
-        return view('RevisarFracciones', compact('fracciones'));
+        //$fracciones = Fraccion::all();
+        $fracciones = Fraccion::distinct()
+        ->select('fracciones.nombre','fracciones.id')
+        ->from('fracciones')
+        ->where('fracciones.articulo',Session::get('ley'))
+        ->get();
+        return view('RevisarFracciones', compact('fracciones'))->with('articulo',Session::get('ley'));
     }
 
     public function FraccionesDisp()
@@ -37,6 +59,7 @@ class FraccionesController extends Controller
         ->join('asig_frags', 'fracciones.id', '=', 'asig_frags.idfraccion')
         ->join('users', 'asig_frags.idfragmento', '=', 'users.fragmento')
         ->where('users.id', Auth::id())
+        ->where('fracciones.articulo',Session::get('ley'))
         ->get();
         return view('CargarFraccion', compact('fracciones','departamento'));
     }

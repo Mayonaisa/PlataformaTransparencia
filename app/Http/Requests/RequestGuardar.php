@@ -21,6 +21,7 @@ class RequestGuardar extends FormRequest
             'fraccion_id' => 'required',
             'titulo' => 'required',
             'descripcion' => 'required',
+            'articulo' => 'required',
             'documento' => 'required|file|mimes:pdf|max:2048',
         ];
     }

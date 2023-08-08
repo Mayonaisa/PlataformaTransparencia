@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('fracciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->enum('articulo',[75,76])->default(75);
         });
     }
 

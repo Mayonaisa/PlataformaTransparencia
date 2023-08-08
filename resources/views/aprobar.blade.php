@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +13,15 @@
     
 </head>
 <body>
-    <header class="container mx-auto flex flex-col pt-[100px] gap-9">
+    <header class="container mx-auto flex flex-col pt-[100px] gap-9" id="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>
-        <h2 class="text-3xl font-bold text-gray-400 pl-[240px]">Articulo 75</h2>
+        @if(!empty($articulo))
+  <h2 class="text-3xl font-bold text-gray-400 pl-[240px]" id="titulo">{{ $articulo }}</h2>
+@endif
+        {{-- <h2 class="text-3xl font-bold text-gray-400 pl-[240px]" id="titulo">Articulo 75</h2> --}}
         <div class="self-center -mt-4">
-        <p class="text-center">Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto</p>
-        <p class="text-center">social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan</p>
+        <p class="text-center" id="p1">Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto</p>
+        <p class="text-center" id="p2">social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan</p>
         </div>
     </header>
 
@@ -34,33 +40,12 @@
                     @endforeach
                 </select>
             </div>
+            <input type="hidden" name="articulo" id="articulo" value="{{ Session::get('ley') }}">
         </section>
         
     <section class="ml-[70px]">
     <p class="text-3xl font-bold text-gray-400 ml-[110px] w-12 text-center">fraccion seleccionada</p>
-    {{-- <table class="border-2 w-[400px] table-auto">
-        <thead>
-            <tr>
-                <th class="border-2"><img src="" alt=""><p>Direccion administrativa y financiera</p> <img src="" alt=""></th>
-            </tr>
-        </thead>
-        <tbody class="shadow-lg">
-            <tr class="w-30">
-                <td id="normas" class="px-10 flex gap-10 text-left w-30">
-                    <p class="break-words w-[220px]">holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                    <div class="flex gap-3 mt-6 ml-6">
-                        <div style="background-color: #D6FFDA; border: none; cursor: pointer; height: 35px; border-radius: 5px; width: 35px; text-align: center;">
-                            <a href="" style="color: white; font-size: 1em;" class="fa fa-check"></a>
-                        </div>
-                        <div style="background-color: #F19C99; border: none; cursor: pointer; height: 35px; border-radius: 5px; width: 35px; text-align: center;">
-                            <a href="" style="color: white; font-weight: bold; font-size: 1.5em;">&#215;</a>
-                        </div>
-                    </div>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table> --}}
+
     <div class="grid grid-cols-1 w-[350px] text-center ml-[400px] mt-7 border" id="divFrac">
                 <div class="border">Seleccionar una Fraccion.</div>
                 {{-- <div class="border">
@@ -75,6 +60,30 @@
 </body>
 <script>
     $(document).ready(function() {
+        const header = document.getElementById('header');
+        const ley = document.getElementById('articulo');
+        let titulo = document.getElementById('titulo');
+        let p1 = document.getElementById('p1');
+        let p2 = document.getElementById('p2');
+        console.log(ley.value);
+        if(ley.value == 76)
+        {
+            titulo.innerHTML = "Articulo "+ ley;
+            p1.innerHTML = "Además de lo señalado en el artículo anterior de la presente Ley, el Poder Ejecutivo y sus Dependencias, los Ayuntamientos y la Administración Pública Municipal, deberán poner a disposición";
+            p2.innerHTML = "del público y actualizar la siguiente información.";
+            header.appendChild(titulo);
+            header.appendChild(p1);
+            header.appendChild(p2);
+        }
+        else
+        {
+            titulo.innerHTML = "Articulo "+ ley;
+            p1.innerHTML = "Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto";
+            p2.innerHTML = "social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan";
+            header.appendChild(titulo);
+            header.appendChild(p1);
+            header.appendChild(p2);
+        }
     //const divs = document.querySelectorAll('.border-2');
     const select = document.getElementById('select');
     const options = select.querySelectorAll('option');

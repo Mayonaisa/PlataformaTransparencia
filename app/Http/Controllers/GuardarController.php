@@ -54,14 +54,25 @@ class GuardarController extends Controller
         ->where('users.id',Auth::id())
         ->first();
 
+        $valor = Session::get('ley');
+
         $obligacion = new Obligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
         $obligacion->nombre = $request['titulo'];
         $obligacion->descripcion = $request['descripcion'];
-        $obligacion->trimestre = 0;
+        $obligacion->semestre = 0;
         $obligacion->año = 0;
         $obligacion->fragmento = $fragmento->id;
         $obligacion->fraccion = $request['fraccion_id'];
-        $obligacion->articulo = '75'; //temporal, luego seria un session articulo
+        // if (Session::has('ley'))
+        // {
+        //     $obligacion->articulo = 76;
+        // }
+        // else
+        // {
+        //     $obligacion->articulo = 75;
+        // }
+        //$obligacion->articulo = strval($valor); //temporal, luego seria un session articulo
+        $obligacion->articulo = $request['articulo'];
         $obligacion->user_id = Auth::id();
         $obligacion->created_at = Carbon::now()->toDateTimeString();
         $obligacion->updated_at = Carbon::now()->toDateTimeString();

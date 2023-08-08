@@ -11,12 +11,12 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class=" w-screen overflow-x-hidden">
-    <header class="container mx-auto flex flex-col pt-[100px] gap-9">
+    <header class="container mx-auto flex flex-col pt-[100px] gap-9" id ="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>
-        <h2 class="text-3xl font-bold text-gray-400 pl-[240px]">Articulo 75</h2>{{--luego aquí se va a cambiar para que diga el articulo seleccionado--}}
+        <h2 class="text-3xl font-bold text-gray-400 pl-[240px]" id="titulo">Articulo 75</h2>{{--luego aquí se va a cambiar para que diga el articulo seleccionado--}}
         <div class="self-center -mt-4">
-        <p class="text-center">Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto</p>
-        <p class="text-center">social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan</p>
+        <p class="text-center" id="p1">Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto</p>
+        <p class="text-center" id="p2">social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan</p>
         </div>
     </header>
     <main class=" flex-1 container mx-auto mb-60">
@@ -64,9 +64,31 @@ session_start();
     </footer>
 </body>
 <script>
-
-
   $(document).ready(function() {
+  const header = document.getElementById('header');
+  const ley = sessionStorage.getItem('ley');
+  let titulo = document.getElementById('titulo');
+  let p1 = document.getElementById('p1');
+  let p2 = document.getElementById('p2');
+  if(sessionStorage.getItem('ley') == 76)
+  {
+    titulo.innerHTML = "Articulo "+ ley;
+    p1.innerHTML = "Además de lo señalado en el artículo anterior de la presente Ley, el Poder Ejecutivo y sus Dependencias, los Ayuntamientos y la Administración Pública Municipal, deberán poner a disposición";
+    p2.innerHTML = "del público y actualizar la siguiente información.";
+    header.appendChild(titulo);
+    header.appendChild(p1);
+    header.appendChild(p2);
+  }
+  else
+  {
+    titulo.innerHTML = "Articulo "+ ley;
+    p1.innerHTML = "Los sujetos obligados pondrán a disposición del público y mantendrán actualizada, en los respectivos medios electrónicos de acuerdo con sus facultades, atribuciones, funciones u objeto";
+    p2.innerHTML = "social, según corresponda la información, por lo menos, de los temas, documentos y politicas que acontinuación se señalan";
+    header.appendChild(titulo);
+    header.appendChild(p1);
+    header.appendChild(p2);
+  }
+
   const divs = document.querySelectorAll('.border-2');
   const fraccionIdInput = document.getElementById('fraccion_id');
   const tabla = document.getElementById('divFrac');

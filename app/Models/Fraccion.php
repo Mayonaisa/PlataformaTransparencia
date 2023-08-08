@@ -13,5 +13,6 @@ class Fraccion extends Model
 
     protected $fillable = [
         'nombre',
+        'articulo',
     ];
 }
