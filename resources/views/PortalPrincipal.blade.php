@@ -52,7 +52,7 @@ session_start();
                 <h3 class="text-base font-bold text-green-600 text-center mt-5">Solicite información pública</h3>
                 <img class=" ml-5" src="{{ asset('imagenes/plataformaTrans.png') }}" alt="">
             </a>
-            <a class=" border-2 w-[250px] h-[190px] rounded-[2rem]"  href="">
+            <a class=" border-2 w-[250px] h-[190px] rounded-[2rem]"  href="/ContabilidadPortal">
                 <h2 class="text-2xl font-bold text-green-600 text-center mt-3 leading-loose">Portal de obligaciones de transparencia</h2>
             </a>
         </div>

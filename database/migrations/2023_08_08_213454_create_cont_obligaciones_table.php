@@ -11,32 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obligaciones', function (Blueprint $table) {
+        Schema::create('cont_obligaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('trimestre');
+            $table->string('notas');
+            $table->enum('trimestre',['1','2','3','4'])->default('1');
             $table->string('año');
             $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
-            $table->foreignId('fraccion')->references('id')->on('fracciones');
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('cont_documento')->references('id')->on('cont_documentos');
             $table->enum('estado',['subido','aprobado','rechazado'])->default('subido');
-            $table->enum('articulo',[75,76])->default(75);
             $table->string('archivo');
             $table->string('direccion');
-            $table->timestamps();
 
             $table->engine = 'InnoDB';
             $table->charset = 'latin1';
             $table->collation = 'latin1_swedish_ci';
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
-        Schema::dropIfExists('obligaciones');
+        Schema::dropIfExists('cont_obligaciones');
     }
 };

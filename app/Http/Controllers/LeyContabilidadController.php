@@ -25,4 +25,14 @@ class LeyContabilidadController extends Controller
         }
         return view('ContabilidadPortal',['Obligaciones'=>$Obligaciones]);
     }
+    function mostrarAprobar()
+    {   
+        $Obligaciones=Obligacion::buscarPorTrimestre('1');
+        return view('ContabilidadPortal',['Obligaciones'=>$Obligaciones]);
+    }
+    function mostrarCargar()
+    {   
+        $Obligaciones=Obligacion::buscarPorTrimestre('1');
+        return view('ContabilidadPortal',['Obligaciones'=>$Obligaciones]);
+    }
 }

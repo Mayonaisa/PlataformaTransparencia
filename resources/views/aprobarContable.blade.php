@@ -57,7 +57,7 @@
         <section class=" mt-20 text-center">
             <div>
                 <p class="text-xl font-bold text-gray-400">subir</p>
-                <a href="/CargarContabilidad"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
+                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
             </div>
             <div class="mt-12">
                 <p class="text-xl font-bold text-gray-400">revisar</p>
