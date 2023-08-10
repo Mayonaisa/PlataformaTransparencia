@@ -49,6 +49,20 @@ class LeyContabilidadController extends Controller
     }
     function mostrarCargar()
     {   
+        // $departamento = Fragmento::distinct()
+        // ->select('fragmentos.nombre')
+        // ->from('fragmentos')
+        // ->join('users','fragmentos.id','=','users.fragmento')
+        // ->where('users.id',Auth::id())
+        // ->first();
+        // $fracciones = Fraccion::distinct()
+        // ->select('fracciones.nombre', 'fracciones.id')
+        // ->join('asig_frags', 'fracciones.id', '=', 'asig_frags.idfraccion')
+        // ->join('users', 'asig_frags.idfragmento', '=', 'users.fragmento')
+        // ->where('users.id', Auth::id())
+        // ->where('fracciones.articulo',Session::get('ley'))
+        // ->get();
+        // return view('CargarFraccion', compact('fracciones','departamento'));
         
         return view('CargarContable');
     }
