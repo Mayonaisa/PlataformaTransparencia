@@ -59,7 +59,6 @@ class GuardarController extends Controller
         $obligacion = new Obligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
         $obligacion->nombre = $request['titulo'];
         $obligacion->descripcion = $request['descripcion'];
-        $obligacion->trimestre = 0;
         $obligacion->año = 0;
         $obligacion->fragmento = $fragmento->id;
         $obligacion->fraccion = $request['fraccion_id'];

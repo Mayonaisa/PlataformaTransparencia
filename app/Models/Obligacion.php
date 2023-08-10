@@ -19,7 +19,6 @@ class Obligacion extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'trimestre',
         'año',
         'fragmento',
         'fraccion',
@@ -37,9 +36,6 @@ class Obligacion extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    static function buscarPorTrimestre($trimestre)
-    {
-        return Obligacion::where('trimestre',$trimestre)->get();
-    }
+    
     
 }

@@ -44,25 +44,11 @@
             
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
-             <p>I. Información contable</p>
-             @foreach ($Obligaciones as $key=>$obligacion)
-                 <a href="{{ route('descargarpdf', $obligacion->id) }}" class=" text-green-600">{{$obligacion->nombre}}</a>
-
-             @endforeach
+             
+             
              
         </div>
 
-        </section>
-
-        <section class=" mt-20 text-center">
-            <div>
-                <p class="text-xl font-bold text-gray-400">subir</p>
-                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
-            </div>
-            <div class="mt-12">
-                <p class="text-xl font-bold text-gray-400">revisar</p>
-                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
-            </div>
         </section>
     </main>
 </body>

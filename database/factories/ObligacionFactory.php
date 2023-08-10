@@ -20,7 +20,6 @@ class ObligacionFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word,
-            'semestre' => $this->faker->randomElement(['1ER TRIMESTRE', '2DO TRIMESTRE', '3ER TRIMESTRE', '4TO TRIMESTRE']),
             'año' => $this->faker->year,
             'url' => $this->faker->url,
         ];

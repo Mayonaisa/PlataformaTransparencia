@@ -41,14 +41,48 @@
                 
             </div>
             <div class="border-x-2">
+                <div class="cv">
+                    <p class=" ml-6">I. Información contable:</p>
+                    @foreach ($documentoCont as  $key=>$docuCont )
+                        @if ($docuCont->tipo=="Información contable")
+                            <p class=" ml-6">{{$contLetras[$key]}}) {{$docuCont->nombre}}</p>
+                            @foreach ($obligacionCont as  $key2=>$obliCont )
+                            
+                                @if ($docuCont->id==$obliCont->cont_documento)
+                                    <p class=" ml-[80px]">{{$obliCont->notas}}</p>
+                                    <a href="{{ route('descargarContpdf', ['id' => $obliCont->id]) }}" class="ml-6 text-green-700">{{$obliCont->nombre}}</a>
+                                    
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+
+                    <p class=" ml-6">II. Información presupuestaria:</p>
+                    @php
+                        $cont2=0;
+                    @endphp
+                    @foreach ($documentoCont as  $key3=>$docuCont )
+                        @if ($docuCont->tipo=="Información presupuestaria")
+                        <p class=" ml-6">{{$contLetras[$cont2]}}) {{$docuCont->nombre}}</p>
+                        @php
+                        $cont2++;
+                        @endphp
+                                    @foreach ($obligacionCont as  $key2=>$obliCont )
+                                
+                                        @if ($docuCont->id==$obliCont->cont_documento)
+                                                 <p class=" ml-6">{{$obliCont->notas}}</p>
+                                                <a href="{{ route('descargarContpdf', ['id' => $obliCont->id]) }}" class="ml-6 text-green-700">{{$obliCont->nombre}}</a>
+                                                
+                                        @endif
+                                    @endforeach
+                        @endif
+                    @endforeach
+                </div>
             
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
-             <p>I. Información contable</p>
-             @foreach ($Obligaciones as $key=>$obligacion)
-                 <a href="{{ route('descargarpdf', $obligacion->id) }}" class=" text-green-600">{{$obligacion->nombre}}</a>
-
-             @endforeach
+             
+             
              
         </div>
 
@@ -57,11 +91,11 @@
         <section class=" mt-20 text-center">
             <div>
                 <p class="text-xl font-bold text-gray-400">subir</p>
-                <a href="/CargarContabilidad"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
+                <a href="{{ route('mostrarCargar') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
             </div>
             <div class="mt-12">
                 <p class="text-xl font-bold text-gray-400">revisar</p>
-                <a href=""><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
+                <a href="{{ route('mostrarAprobar') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
             </div>
         </section>
     </main>

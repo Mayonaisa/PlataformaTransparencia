@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class contObligacion extends Model
 {
-    protected $table = 'contObligaciones';
+    protected $table = 'cont_Obligaciones';
     use HasFactory;
 
     protected $fillable = [
@@ -36,5 +36,9 @@ class contObligacion extends Model
     public function contDocumento()
     {
         return $this->belongsTo(ContDocumento::class, 'cont_documento');
+    }
+    static function buscarPorTrimestre($trimestre)
+    {
+        return contObligacion::where('trimestre',$trimestre)->get();
     }
 }

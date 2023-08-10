@@ -52,10 +52,12 @@ Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desp
 //descarga---------------------------------------------------------------------------------
 Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
 
+
 //aprovar----------------------------------------------------------------------------------
 Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
 //rechazar---------------------------------------------------------------------------------
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
+
 
 Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
@@ -64,33 +66,13 @@ Route::prefix('ContabilidadPortal')
         Route::get('/', 'mostrar')->name('mostrar');
         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         
-        Route::get('/CargarContabilidad',function()
-        {
-            $añoActual = Carbon::now()->year;
-            return view('CargarContable', compact('añoActual'));
-        });
-        Route::get('/AprobarContabilidad',function()
-        {
-            $añoActual = Carbon::now()->year;
-            return view('aprobarContable', compact('añoActual'));
-        });
-        //Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
-        //Route::get('/descarga/{archivo}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
+        Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
+        Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
+        Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+        
+
     });
 
-// Route::prefix('aprobar')
-//     ->controller(AprobarController::class)
-//     ->group(function()
-//     {
-//         Route::get('/', 'mostrar')->name('mostrar');
-//     });
-// Route::prefix('PortalFracciones')
-//     ->controller(SubirObligacionController::class)
-//     ->group(function()
-//     {
-//         Route::get('/', 'mostrar')->name('mostrar');
-//     });
-    
     Route::get('/TransparenciaPagina',function()
     {
         return view('TransparenciaPiePagina');
