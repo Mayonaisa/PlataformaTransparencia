@@ -32,6 +32,13 @@ class FraccionesController extends Controller
         // $variablesDeSesion = Session::all();
 
         // $fracciones = array_keys($variablesDeSesion);
+        $usuario = User::distinct()
+        ->select('users.rol_id')
+        ->from('users')
+        ->where('users.id',Auth::id())
+        ->first();
+
+        Session::put('rol', $usuario->rol_id);
 
         return view('ConsultarFracciones', compact('fracciones'));
     }
@@ -39,11 +46,32 @@ class FraccionesController extends Controller
     {
         //$fracciones = Fraccion::all();
         $fracciones = Fraccion::distinct()
-        ->select('fracciones.nombre','fracciones.id')
-        ->from('fracciones')
+        ->select('fracciones.nombre', 'fracciones.id')
+        ->join('asig_frags', 'fracciones.id', '=', 'asig_frags.idfraccion')
+        ->join('users', 'asig_frags.idfragmento', '=', 'users.fragmento')
+        ->where('users.id', Auth::id())
         ->where('fracciones.articulo',Session::get('ley'))
         ->get();
-        return view('RevisarFracciones', compact('fracciones'))->with('articulo',Session::get('ley'));
+
+        $rol = Session::get('rol');
+
+        if($rol == 2)
+        {
+            return view('RevisarFracciones', compact('fracciones'))->with('articulo',Session::get('ley'));
+        }
+        elseif($rol == 3)
+        {
+            return view('PortalPrincipal');
+        }
+        elseif($rol == 1)
+        {
+            $fracciones = Fraccion::distinct()
+            ->select('fracciones.nombre','fracciones.id')
+            ->from('fracciones')
+            ->where('fracciones.articulo',Session::get('ley'))
+            ->get();
+            return view('RevisarFracciones', compact('fracciones'))->with('articulo',Session::get('ley'));
+        }
     }
 
     public function FraccionesDisp()

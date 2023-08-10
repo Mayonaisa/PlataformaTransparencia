@@ -126,12 +126,11 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-    //Route::get('/AprobarObligacion', [AprobarController::class, 'mostrar'])->name('AprobarObligacion');
-    //principal
     Route::get('/PortalPrincipal',function()
     {
         return view('PortalPrincipal');
     });
+    //Route::get('/PortalPrincipal',[UsuarioController::class, 'cargarUsuario']);
 });
 
 require __DIR__.'/auth.php';
