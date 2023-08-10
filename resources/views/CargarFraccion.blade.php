@@ -41,7 +41,7 @@ session_start();
         
 
             <div>
-            <input type="file" name="documento" id="documento" accept="application/pdf" required>
+            <input type="file" name="documento" id="documento" accept=".pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
             </div>
         
             <div class="mt-5">

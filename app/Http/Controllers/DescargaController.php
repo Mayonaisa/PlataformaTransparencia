@@ -22,7 +22,7 @@ class DescargaController extends Controller
         if (file_exists($file)) {
             $nombreArchivo = $obligacion->archivo;
             $headers = [
-                'Content-Type' => 'application/pdf',
+                'Content-Type' => 'application/xslx',
                 'Content-Disposition' => 'attachment; filename="' . $nombreArchivo . '"',
             ];
 

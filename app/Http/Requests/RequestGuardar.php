@@ -22,7 +22,7 @@ class RequestGuardar extends FormRequest
             'titulo' => 'required',
             'descripcion' => 'required',
             'articulo' => 'required',
-            'documento' => 'required|file|mimes:pdf|max:2048',
+            'documento' => 'required|file|mimes:pdf,xlsx|max:2048',
         ];
     }
 }
