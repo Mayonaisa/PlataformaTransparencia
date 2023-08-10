@@ -19,7 +19,6 @@ class Obligacion extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'trimestre',
         'año',
         'fragmento',
         'fraccion',

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->string('trimestre');
             $table->string('año');
             $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
             $table->foreignId('fraccion')->references('id')->on('fracciones');
