@@ -59,19 +59,19 @@ Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
 
 
-Route::prefix('ContabilidadPortal')
-    ->controller(LeyContabilidadController::class)
-    ->group(function()
-    {
-        Route::get('/', 'mostrar')->name('mostrar');
-        Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
+// Route::prefix('ContabilidadPortal')
+//     ->controller(LeyContabilidadController::class)
+//     ->group(function()
+//     {
+//         Route::get('/', 'mostrar')->name('mostrar');
+//         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         
-        Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
-        Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
-        Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+//         Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
+//         Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
+//         Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
         
 
-    });
+//     });
 
     Route::get('/TransparenciaPagina',function()
     {
@@ -126,11 +126,23 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-    //Route::get('/AprobarObligacion', [AprobarController::class, 'mostrar'])->name('AprobarObligacion');
-    //principal
     Route::get('/PortalPrincipal',function()
     {
         return view('PortalPrincipal');
+    });
+    //Route::get('/PortalPrincipal',[UsuarioController::class, 'cargarUsuario']);
+    Route::prefix('ContabilidadPortal')
+    ->controller(LeyContabilidadController::class)
+    ->group(function()
+    {
+        Route::get('/', 'mostrar')->name('mostrar');
+        Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
+        
+        Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
+        Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
+        Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+        
+
     });
 });
 
