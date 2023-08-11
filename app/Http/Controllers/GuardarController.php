@@ -8,6 +8,7 @@ use App\Models\Obligacion;
 use App\Models\Fraccion;
 use App\Models\Fragmento;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
@@ -66,13 +67,19 @@ class GuardarController extends Controller
 
         $obligacion->articulo = $request['articulo'];
         $obligacion->user_id = Auth::id();
-        $obligacion->created_at = Carbon::now()->toDateTimeString();
-        $obligacion->updated_at = Carbon::now()->toDateTimeString();
+        $hora = Carbon::now()->toDateTimeString();
+        $obligacion->created_at = $hora;
+        $obligacion->updated_at = $hora;
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         $obligacion->save();
         
-        $id = $obligacion->id;
+        $registro = Obligacion::distinct()
+            ->select('obligaciones.id')
+            ->from('obligaciones')
+            ->where('obligaciones.created_at',$hora)
+            ->first();
+        $id = $registro->id;
         $nombre;
 
         $registro = Obligacion::find($id);
