@@ -16,21 +16,18 @@ class DescargaController extends Controller
         ->where('id',$id)
         ->first();
 
-
-        $file = storage_path('app/'.($obligacion->direccion).'/'.($obligacion->archivo));
-        $dir = 'app/'.($obligacion->direccion).'/'.($obligacion->archivo);
+        $nombreArchivo = $id .'~'.($obligacion->archivo);
+        $file = storage_path('app/'.($obligacion->direccion).'/'.$nombreArchivo);
+        
         if (file_exists($file)) {
-            $nombreArchivo = $obligacion->archivo;
             $headers = [
                 'Content-Type' => 'application/xslx',
-                'Content-Disposition' => 'attachment; filename="' . $nombreArchivo . '"',
+                'Content-Disposition' => 'attachment; filename="'. $obligacion->archivo . '"',
             ];
 
-            //return response()->json(['exito' => 'El archivo  existe.']);
-            return response()->download($file, $nombreArchivo, $headers);
-            //return response()->download($file);
+            return response()->download($file, $obligacion->archivo, $headers);
         } else {
-            return response()->json(['error' => 'El archivo no existe.']);
+            return response()->json(['error' => 'El archivo no existe.'. $nombreArchivo]);
         }
         //return response()->json(['response'=>$dir]);
     }

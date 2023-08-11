@@ -32,13 +32,20 @@ class FraccionesController extends Controller
         // $variablesDeSesion = Session::all();
 
         // $fracciones = array_keys($variablesDeSesion);
-        $usuario = User::distinct()
-        ->select('users.rol_id')
-        ->from('users')
-        ->where('users.id',Auth::id())
-        ->first();
 
-        Session::put('rol', $usuario->rol_id);
+        if (Auth::id() != null) {
+            $usuario = User::distinct()
+            ->select('users.rol_id')
+            ->from('users')
+            ->where('users.id',Auth::id())
+            ->first();
+
+            Session::put('rol', $usuario->rol_id);
+        }
+        else
+        {
+            Session::put('rol', 6);
+        }
 
         return view('ConsultarFracciones', compact('fracciones'));
     }

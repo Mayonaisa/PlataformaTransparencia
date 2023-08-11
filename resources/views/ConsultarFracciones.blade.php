@@ -47,11 +47,13 @@ session_start();
             </div>
         </section>
         <section class="ml-10 mt-20 text-center">
-            <div>
-                <p class="text-xl font-bold text-gray-400">subir</p>
-                <a href="{{ route('CargarFraccion') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
-            </div>
-            @if(Session::has('rol') && Session::get('rol') != 3)
+            @if(Session::has('rol') && Session::get('rol') <= 3)
+              <div>
+                  <p class="text-xl font-bold text-gray-400">subir</p>
+                  <a href="{{ route('CargarFraccion') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
+              </div>
+            @endif
+            @if(Session::has('rol') && Session::get('rol') <= 2)
                 <div class="mt-12" id="divRevisar">
                     <p class="text-xl font-bold text-gray-400">revisar</p>
                     <a href="{{ route('RevisarFracciones') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>

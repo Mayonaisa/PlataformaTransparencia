@@ -109,6 +109,13 @@ Route::get('/guardarpdf',function()
     return view('prueba');
 });
 
+Route::get('/PortalPrincipal',function()
+    {
+        return view('PortalPrincipal');
+    });
+
+Route::get('/PortalFracc/{articulo}', [FraccionesController::class,'mostrarFracciones']);
+
 //breeze (dashboard es una vista de prueba que se usa para comprobar que se hizo login)
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -120,16 +127,16 @@ Route::middleware('auth')->group(function () {
     // {
     //     return view('ConsultarFracciones');
     // });
-    Route::get('/PortalFracc/{articulo}', [FraccionesController::class,'mostrarFracciones']);
+    // Route::get('/PortalFracc/{articulo}', [FraccionesController::class,'mostrarFracciones']);
     //subir fracciones---------------------------------------------------------------
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-    Route::get('/PortalPrincipal',function()
-    {
-        return view('PortalPrincipal');
-    });
+    // Route::get('/PortalPrincipal',function()
+    // {
+    //     return view('PortalPrincipal');
+    // });
     //Route::get('/PortalPrincipal',[UsuarioController::class, 'cargarUsuario']);
     Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)

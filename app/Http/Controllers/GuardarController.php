@@ -63,15 +63,7 @@ class GuardarController extends Controller
         $obligacion->año = 0;
         $obligacion->fragmento = $fragmento->id;
         $obligacion->fraccion = $request['fraccion_id'];
-        // if (Session::has('ley'))
-        // {
-        //     $obligacion->articulo = 76;
-        // }
-        // else
-        // {
-        //     $obligacion->articulo = 75;
-        // }
-        //$obligacion->articulo = strval($valor); //temporal, luego seria un session articulo
+
         $obligacion->articulo = $request['articulo'];
         $obligacion->user_id = Auth::id();
         $obligacion->created_at = Carbon::now()->toDateTimeString();
@@ -80,13 +72,22 @@ class GuardarController extends Controller
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         $obligacion->save();
         
+        $id = $obligacion->id;
+        $nombre;
+
+        $registro = Obligacion::find($id);
+
+        if ($registro) {
+            $nombre = $id.'~'.$registro->archivo;
+        }
         
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
             $ruta = $obligacion->direccion;
             //$archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
-            $archivo->storeAs($ruta, $request->file('documento')->getClientOriginalName());
+            $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
+            //$archivo->storeAs($ruta, $nombre);
         }
 
         Session::flash("error","Registro exitoso.");

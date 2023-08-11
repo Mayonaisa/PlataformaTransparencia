@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->enum('tipo',['ADMINISTRADOR','USUARIO','SUPERVISOR'])->default('USUARIO');
+            $table->enum('tipo',['ADMINISTRADOR','USUARIO','SUPERVISOR','ADMIN_CONT','USUARIO_CONT','INVITADO'])->default('USUARIO');
 
             $table->engine = 'InnoDB';
             $table->charset = 'latin1';
