@@ -48,6 +48,10 @@ session_start();
                     
                 </div> --}}
             </div>
+            {{-- aprobadas --}}
+            <div class="grid grid-cols-1 w-[450px] text-center mt-7 border" id="divAprob">
+                <div class="border">Obligaciones aprobadas.</div>
+            </div>
         </section>
         
 
@@ -89,11 +93,13 @@ session_start();
   const divs = document.querySelectorAll('.border-2');
   const fraccionIdInput = document.getElementById('fraccion_id');
   const tabla = document.getElementById('divFrac');
+  const tabla2 = document.getElementById('divAprob');
 
   divs.forEach((div) => {
     div.addEventListener('click', function(event) {
       fraccionIdInput.value = this.getAttribute('id');
       tabla.innerHTML = '';
+      tabla2.innerHTML = '';
       $.ajax({
         url: "{{ route('desplegar') }}",
         type: "POST",
@@ -105,6 +111,8 @@ session_start();
         success: function(response) {
           var obligacion = response.obligacion;
           var fragmento = response.fragmento;
+          var aprobado = response.aprobado;
+          var fragaprob = response.fragaprob;
 
           fragmento.forEach(function(fragm) {
             const fra = document.createElement('div');
@@ -140,6 +148,46 @@ session_start();
                   "</div>";
                   
                 tabla.appendChild(fra2);
+
+                
+              }
+            });
+          });
+          //aprobado///////////////////////////////////////////////////
+          fragaprob.forEach(function(fragm) {
+            const fra = document.createElement('div');
+            fra.setAttribute('class', 'border');
+            let frag = fragm.id;
+            fra.innerHTML = fragm.nombre;
+            tabla2.innerHTML = '<div class="border" style="background-color:#86efad; color:#ffffff">Obligaciones aprobadas.</div>';
+            tabla2.appendChild(fra);
+
+            aprobado.forEach(function(obli) {
+              if (obli.fragmento == frag) {
+                const fra2 = document.createElement('div');
+                
+                fra2.setAttribute('class', 'border');
+                fra2.innerHTML =
+                "<div class=' flex  flex-row gap-8' style='background-color:#f5fcf6'>"+
+                  "<div class='text-left ml-14'>"+
+                      "<b>" +
+                      obli.nombre +
+                      "</b><p class='text-sm' style='padding: 0;'>Fecha de actualizacion: " +
+                      obli.updated_at +
+                      "<br>   " +
+                      obli.descripcion +
+                      "    </p><a style='padding: 0; color:#16a340;' data-id='" +
+                      obli.id +
+                      "' href='/descarga/"+obli.id+"'>" +
+                      obli.archivo +
+                      "</a>"+
+                    "</div>"+
+                    "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
+                      "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
+                    "</div>"+
+                  "</div>";
+                  
+                tabla2.appendChild(fra2);
 
                 
               }
