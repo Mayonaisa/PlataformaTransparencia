@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('archivo');
             $table->string('direccion');
             $table->timestamps();
+            $table->boolean('hipervinculo')->default(false);
 
             $table->engine = 'InnoDB';
             $table->charset = 'latin1';

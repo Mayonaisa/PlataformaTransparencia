@@ -51,6 +51,7 @@ session_start();
               <div>
                   <p class="text-xl font-bold text-gray-400">subir</p>
                   <a href="{{ route('CargarFraccion') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
+                  <input type="hidden" name="rol" id="rol">
               </div>
             @endif
             @if(Session::has('rol') && Session::get('rol') <= 2)
@@ -67,11 +68,46 @@ session_start();
     <footer>
     @include('TransparenciaPiePagina')
     </footer>
+
+  <div id="overlay" style="position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+  display: none; {{--flex--}}
+  justify-content: center;
+  align-items: center;" onclick="off()">
+    <div id="info" style="position: fixed;
+  display: none;
+  width: 50%;
+  height: 50%;
+  background-color: #ffffff;
+  cursor: default;
+  overflow: auto;">
+    </div>
+  </div>
+
 </body>
 <script>
+    const overlay = document.getElementById('overlay');
+    const info = document.getElementById('info');
+    function off() {
+      info.innerHTML = '';
+      overlay.style.display = "none";
+      info.style.display = "none";
+    }
+    info.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
   $(document).ready(function() {
   const header = document.getElementById('header');
   const ley = sessionStorage.getItem('ley');
+  const rolver = document.getElementById('rol');
   let titulo = document.getElementById('titulo');
   let p1 = document.getElementById('p1');
   let p2 = document.getElementById('p2');
@@ -98,9 +134,14 @@ session_start();
   const fraccionIdInput = document.getElementById('fraccion_id');
   const tabla = document.getElementById('divFrac');
 
+  let hipers;
+  let id_frac;
+
   divs.forEach((div) => {
     div.addEventListener('click', function(event) {
+      event.stopPropagation();
       fraccionIdInput.value = this.getAttribute('id');
+      id_frac = this.getAttribute('id');
       tabla.innerHTML = '';
       $.ajax({
         url: "{{ route('desplegar') }}",
@@ -111,14 +152,15 @@ session_start();
           tipo: "aprobado"
         },
         success: function(response) {
-          var obligacion = response.obligacion;
+          var obligacion = response.obligacionh;
           var fragmento = response.fragmento;
           
           fragmento.forEach(function(fragm) {
             const fra = document.createElement('div');
             fra.setAttribute('class', 'border');
+            fra.setAttribute('style', 'position: relative;');
             let frag = fragm.id;
-            fra.innerHTML = fragm.nombre;
+            fra.innerHTML = fragm.nombre +"<button style='position: absolute;right: 0;background-color: #16783d;color:#ffffff;width:10%' data-id='"+fragm.id+"'>?</button>";
             tabla.appendChild(fra);
 
             obligacion.forEach(function(obli) {
@@ -132,14 +174,61 @@ session_start();
                   obli.updated_at +
                   "<br>   " +
                   obli.descripcion +
-                  "    </p><a style='padding: 0; color:#16a340;' data-id='" +
-                  obli.id +
-                  "' href='/descarga/"+obli.id+"'>" +
+                  "    </p><a style='padding: 0; color:#16a340;' href='/descarga/"+obli.id+"'>" +
                   obli.archivo +
                   "</a>";
                 tabla.appendChild(fra2);
 
               
+              }
+            });
+            hipers = document.querySelectorAll('[data-id]');
+            hipers.forEach((hiper) => {
+              if(rolver != null)
+              {
+                hiper.addEventListener('click', function(event) {
+                  //console.log(hiper.dataset.id);
+                  //console.log(fraccionIdInput.value);
+                  overlay.style.display = "flex";
+                  info.style.display = "block";
+
+                  $.ajax({
+                    url: "{{ route('hipervinculo')}}",
+                    type: "POST",
+                    data: {
+                      _token: "{{ csrf_token() }}",
+                      id: hiper.dataset.id,
+                      fraccion: id_frac
+                    },
+                    success:function(response) {
+                      //console.log(response.mensaje);
+                      info.innerHTML = '';
+                      response.forEach(function(ob){
+                        const vinculo = document.createElement('div');
+                        vinculo.setAttribute('class', 'border');
+                        vinculo.innerHTML =
+                          "<b>" +
+                          ob.nombre +
+                          "</b><p style='padding: 0;'>Fecha de actualizacion: " +
+                          ob.updated_at +
+                          "<br>   " +
+                          ob.descripcion +
+                          "    </p><a style='padding: 0; color:#16a340;' href='/descarga/"+ob.id+"'>" +
+                          ob.archivo +
+                          "</a>";
+                        info.appendChild(vinculo);
+                      });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Error en la petición:", error);
+                    }
+                  });
+
+                });
+              }
+              else
+              {
+                hiper.style.display = "none";
               }
             });
           });

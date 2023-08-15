@@ -53,6 +53,10 @@ session_start();
             <label for="Desc" class="text-2xl font-bold text-gray-400">Descripción</label><br>
             <input type="text" name="descripcion" class=" w-[19rem]" id="descripcion" required>
             </div>
+
+            <div class=" mt-1">
+                <input type="checkbox" id="check" name="check"> Hipervinculo
+            </div>
             @csrf
             <div id="divSubir" class="flex flex-col items-center mt-5">
                 <label for="guardado" class="text-xl font-bold text-gray-400">Subir</label>

@@ -95,6 +95,8 @@ session_start();
   const tabla = document.getElementById('divFrac');
   const tabla2 = document.getElementById('divAprob');
 
+  let checks;
+
   divs.forEach((div) => {
     div.addEventListener('click', function(event) {
       fraccionIdInput.value = this.getAttribute('id');
@@ -165,6 +167,11 @@ session_start();
             aprobado.forEach(function(obli) {
               if (obli.fragmento == frag) {
                 const fra2 = document.createElement('div');
+                let ver="";
+                if(obli.hipervinculo == 1)
+                {
+                  ver="checked ='true'"
+                }
                 
                 fra2.setAttribute('class', 'border');
                 fra2.innerHTML =
@@ -176,22 +183,53 @@ session_start();
                       obli.updated_at +
                       "<br>   " +
                       obli.descripcion +
-                      "    </p><a style='padding: 0; color:#16a340;' data-id='" +
-                      obli.id +
-                      "' href='/descarga/"+obli.id+"'>" +
+                      "    </p><a style='padding: 0; color:#16a340;' href='/descarga/"+obli.id+"'>" +
                       obli.archivo +
                       "</a>"+
                     "</div>"+
                     "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
                       "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
                     "</div>"+
+                    "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
+                      "<input type='checkbox' data-id='"+obli.id+"' name='check'"+ver+"> Hipervinculo"+
+                    "</div>"+
                   "</div>";
                   
-                tabla2.appendChild(fra2);
-
-                
+                tabla2.appendChild(fra2);             
               }
             });
+            //hipervinculo//////////////////////////////////////////////////////////////////////////
+            checks = document.querySelectorAll('input[type="checkbox"]');
+            checks.forEach((check) => {
+              check.addEventListener('change', function() {
+                let val;
+                if (this.checked) {
+                  //console.log("Checkbox "+check.dataset.id+" is checked..");
+                  val = 1;
+                } else {
+                  //console.log("Checkbox is not checked..");
+                  val = 0;
+                }
+
+                $.ajax({
+                  url: "{{ route('hiper')}}",
+                  type: "POST",
+                  data: {
+                    _token: "{{ csrf_token() }}",
+                    id: check.dataset.id,
+                    valor: val
+                  },
+                  success:function(response) {
+                      console.log(response.mensaje);
+                  },
+                  error: function(xhr, status, error) {
+                      console.log("Error en la petición:", error);
+                  }
+                });
+
+              });
+            });
+
           });
         },
         error: function(xhr, status, error) {
@@ -200,6 +238,19 @@ session_start();
       });
     });
   });
+  //hipervinculos/////////////////
+  //const checks = document.querySelectorAll('input[type="checkbox"]');
+  
+//  checks.forEach((check) => {
+//    check.addEventListener('change', function() {
+//      if (this.checked) {
+//        console.log("Checkbox is checked..");
+//      } else {
+//        console.log("Checkbox is not checked..");
+//      }
+//    });
+//  });
+
 });
 </script>
 </html>

@@ -29,6 +29,7 @@ class Obligacion extends Model
         'direccion',
         'created_at',
         'updated_at',
+        'hipervinculo',
     ];
 
     public function usuario()

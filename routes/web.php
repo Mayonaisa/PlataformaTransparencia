@@ -57,6 +57,10 @@ Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name(
 Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
 //rechazar---------------------------------------------------------------------------------
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
+//hipervinculo-----------------------------------------------------------------------------
+Route::post('/hiper', [AprobarController::class,'hiper'])->name('hiper');
+//ver hipervinculos------------------------------------------------------------------------
+Route::post('/hipervinculo', [FraccionesController::class,'hipervinculo'])->name('hipervinculo');
 
 
 // Route::prefix('ContabilidadPortal')
