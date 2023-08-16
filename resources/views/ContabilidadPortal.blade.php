@@ -77,6 +77,48 @@
                                     @endforeach
                         @endif
                     @endforeach
+
+                    <p class=" ml-6">III. Información programática:</p>
+                    @php
+                        $cont2=0;
+                    @endphp
+                    @foreach ($documentoCont as  $key3=>$docuCont )
+                        @if ($docuCont->tipo=="Información programática")
+                        <p class=" ml-6">{{$contLetras[$cont2]}}) {{$docuCont->nombre}}</p>
+                        @php
+                        $cont2++;
+                        @endphp
+                                    @foreach ($obligacionCont as  $key2=>$obliCont )
+                                
+                                        @if ($docuCont->id==$obliCont->cont_documento)
+                                                 <p class=" ml-6">{{$obliCont->notas}}</p>
+                                                <a href="{{ route('descargarContpdf', ['id' => $obliCont->id]) }}" class="ml-6 text-green-700">{{$obliCont->nombre}}</a>
+                                                
+                                        @endif
+                                    @endforeach
+                        @endif
+                    @endforeach
+
+                    <p class=" ml-6">IV. Otra Información de la Ley General de Contabilidad Gubernamental:</p>
+                    @php
+                        $cont2=0;
+                    @endphp
+                    @foreach ($documentoCont as  $key3=>$docuCont )
+                        @if ($docuCont->tipo=="Otra Información de la Ley General de Contabilidad Gubernamental")
+                        <p class=" ml-6">{{$contLetras[$cont2]}}) {{$docuCont->nombre}}</p>
+                        @php
+                        $cont2++;
+                        @endphp
+                                    @foreach ($obligacionCont as  $key2=>$obliCont )
+                                
+                                        @if ($docuCont->id==$obliCont->cont_documento)
+                                                 <p class=" ml-6">{{$obliCont->notas}}</p>
+                                                <a href="{{ route('descargarContpdf', ['id' => $obliCont->id]) }}" class="ml-6 text-green-700">{{$obliCont->nombre}}</a>
+                                                
+                                        @endif
+                                    @endforeach
+                        @endif
+                    @endforeach
                 </div>
             
             </div>

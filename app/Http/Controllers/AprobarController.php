@@ -11,6 +11,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\contObligacion;
+//use Barryvdh\DomPDF\Facade as PDF; En caso de que no jale el anterior en laragon 5.1
 
 class AprobarController extends Controller
 {
@@ -40,5 +43,25 @@ class AprobarController extends Controller
 
         $registro->save();
         return Redirect::back();
+    }
+    public function mostrarAcuse(Request $request)
+    {
+        $id=$request['id'];
+        $obligacion=Obligacion::where('id',$id)->first();
+        $fraccion=Fraccion::where('id',$obligacion->fraccion)->first();
+        $sujeto=Fragmento::where('id',$obligacion->fragmento)->first();
+        preg_match('/\b[I|V|X]+/', $fraccion->nombre, $matches);
+        $result=$matches[0];
+        return view('pdf.Comprobante',['obligacion'=>$obligacion,'fraccion'=>$fraccion,'sujeto'=>$sujeto,'result'=>$result]);
+    }
+    public function Acuse($id)
+    {
+        $obligacion=Obligacion::where('id',$id)->first();
+        $fraccion=Fraccion::where('id',$obligacion->fraccion)->first();
+        $sujeto=Fragmento::where('id',$obligacion->fragmento)->first();
+        preg_match('/\b[I|V|X]+/', $fraccion->nombre, $matches);
+        $result=$matches[0];
+        $pdf = Pdf::loadView('pdf.comprobante',compact('obligacion','fraccion','sujeto','result'))->setPaper('a4');
+        return $pdf->stream('comprobante.pdf');
     }
 }

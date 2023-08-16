@@ -14,4 +14,5 @@ class contDocumento extends Model
         'nombre',
         'tipo',
     ];
+    
 }

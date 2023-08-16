@@ -135,6 +135,7 @@ session_start();
                     crossIcon.style.width = '35px';
                     crossIcon.style.textAlign = 'center';
                     crossIcon.innerHTML = "<a href='/rechazar/"+obli.id+"' style='color: white; font-weight: bold; font-size: 1.5em;'>&#215;</a>";
+
                 fra2.setAttribute('class', 'border');
                 fra2.innerHTML =
                   "<b>" +
@@ -150,6 +151,7 @@ session_start();
                   "</a>";
                 fra2.appendChild(checkIcon);
                 fra2.appendChild(crossIcon);
+                fra2.appendChild(Acuse);
                 tabla.appendChild(fra2);
               }
             });

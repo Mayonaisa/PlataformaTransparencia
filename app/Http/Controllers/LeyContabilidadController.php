@@ -17,7 +17,10 @@ class LeyContabilidadController extends Controller
     function mostrar()
     {   
         $añoActual = Carbon::now()->year;
-        $ContDocu=contDocumento::get();
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->get();
         $trimestre = 1;
         $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
         $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$añoActual);
@@ -26,10 +29,15 @@ class LeyContabilidadController extends Controller
     function trimestre($trimestre)
     {
         $añoActual = Carbon::now()->year;
-        $ContDocu=contDocumento::get();
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->where('cont_obligaciones.trimestre', $trimestre)
+        ->where('cont_obligaciones.año', $añoActual)
+        ->orderBy('cont_documentos.id')
+        ->get();
         $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
         $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$añoActual);
-        //$Obligaciones=contObligacion::buscarPorTrimestre($trimestre);
         if ($obligacionCont==null){
             $obligacionCont= new Obligacion();
         }

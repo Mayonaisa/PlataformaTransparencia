@@ -19,6 +19,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\SubirObligacionController;
+use App\Models\contObligacion;
+use App\Models\Obligacion;
 use Illuminate\Support\Carbon;
 
 /*
@@ -52,11 +54,14 @@ Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desp
 //descarga---------------------------------------------------------------------------------
 Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
 
-
 //aprovar----------------------------------------------------------------------------------
 Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
 //rechazar---------------------------------------------------------------------------------
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
+//Descargar acuseAcuse---------------------------------------------------------------------------------
+Route::get('/Acuse/{id}', [AprobarController::class,'Acuse'])->name('Acuse');
+//Ruta para ver el diseño del acuse
+Route::get('/Comprobante/{id}', [AprobarController::class,'mostrarAcuse'])->name('Comprobante');
 
 
 // Route::prefix('ContabilidadPortal')

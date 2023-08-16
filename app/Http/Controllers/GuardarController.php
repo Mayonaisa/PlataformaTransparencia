@@ -60,41 +60,33 @@ class GuardarController extends Controller
         $obligacion = new Obligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
         $obligacion->nombre = $request['titulo'];
         $obligacion->descripcion = $request['descripcion'];
-        //$obligacion->trimestre = 0;
         $obligacion->año = 0;
         $obligacion->fragmento = $fragmento->id;
         $obligacion->fraccion = $request['fraccion_id'];
-
+        // if (Session::has('ley'))
+        // {
+        //     $obligacion->articulo = 76;
+        // }
+        // else
+        // {
+        //     $obligacion->articulo = 75;
+        // }
+        //$obligacion->articulo = strval($valor); //temporal, luego seria un session articulo
         $obligacion->articulo = $request['articulo'];
         $obligacion->user_id = Auth::id();
-        $hora = Carbon::now()->toDateTimeString();
-        $obligacion->created_at = $hora;
-        $obligacion->updated_at = $hora;
+        $obligacion->created_at = Carbon::now()->toDateTimeString();
+        $obligacion->updated_at = Carbon::now()->toDateTimeString();
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         $obligacion->save();
         
-        $registro = Obligacion::distinct()
-            ->select('obligaciones.id')
-            ->from('obligaciones')
-            ->where('obligaciones.created_at',$hora)
-            ->first();
-        $id = $registro->id;
-        $nombre;
-
-        $registro = Obligacion::find($id);
-
-        if ($registro) {
-            $nombre = $id.'~'.$registro->archivo;
-        }
         
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
             $ruta = $obligacion->direccion;
             //$archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
-            $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
-            //$archivo->storeAs($ruta, $nombre);
+            $archivo->storeAs($ruta, $request->file('documento')->getClientOriginalName());
         }
 
         Session::flash("error","Registro exitoso.");
