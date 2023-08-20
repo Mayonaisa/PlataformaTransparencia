@@ -96,10 +96,15 @@ class GuardarController extends Controller
         $obligacion->año = $request['año'];
         $obligacion->fragmento = $fragmento->id;
         $documentotipo=contDocumento::first()->where('nombre',$request['contDoc']);
-
+        
 
         $obligacion->cont_documento =$documentotipo->id;
-
+        if ($request['hipervinculo']==true){
+            $obligacion->hipervinculo="Y";
+        }
+        else{
+            $obligacion->hipervinculo="N";
+        }
         $obligacion->user_id = Auth::id();
         $obligacion->created_at = Carbon::now()->toDateTimeString();
         $obligacion->updated_at = Carbon::now()->toDateTimeString();
