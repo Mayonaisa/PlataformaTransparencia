@@ -18,15 +18,21 @@
     <main class="flex flex-row mt-10 justify-center gap-10 mr-[120px]">
         <section class="">
             <div>
-                <form id="yearForm" method="POST" action="{{ route('change_year') }}">
+                <form id="yearForm" method="POST" action="{{ route('cambiarAño') }}">
                     @csrf
                     <label for="year">Cambiar año:</label>
-                    <div>
-                        <button type="button" onclick="decrementYear()" class=" border-2">▼</button>
-                        <input class="  border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="number" id="year" name="year" value="2023" readonly>
-                        <button type="button" onclick="incrementYear()" class=" border-2">▲</button>
+                    <div class=" flex gap-3 mt-3 -ml-2">
+                        
+                        <input class=" hidden  border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="number" id="year" name="year" value="{{$año}}" max="{{$año}}" readonly>
+                        <p class=" text-3xl mt-5" id="yearValue">{{$año}}</p>
+                        <div class=" flex flex-col w-9">
+                            <button type="button" onclick="incrementYear()" class=" border-2 h-10 text-center text-xl">▲</button>
+                            <button type="button" onclick="decrementYear()" class=" border-2 h-10 text-center text-xl">▼</button>
+                            
+                        </div>
+                        
                     </div>
-                </form>
+                
             </div>
         </section>
         <section class=" w-[60%] flex flex-col">
@@ -34,12 +40,14 @@
                 <p class=" mt-2">Obligaciones trimestrales (Art 48, que remite al Art. 46)</p>
             </div>
             <div class="border-x-2 w-[100%] h-[5vh] justify-evenly flex text-center text-green-600 mt-2">
-                <a id="tri1" class=" tri w-[25%]   hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 1]) }}">1ER TRIMESTRE</a>
-                <a id="tri2"  class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 2]) }}">2DO TRIMESTRE</a>
-                <a id="tri3" class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="{{ route('trimestre', ['trimestre' => 3]) }}">3ER TRIMESTRE</a>
-                <a id="tri4" class=" tri w-[25%] hover:text-green-500   active:text-green-300" href="{{ route('trimestre', ['trimestre' => 4]) }}">4TO TRIMESTRE</a>
+                <input type="hidden" name="trimestre" id="trimestreInput">
+                <a id="tri1" class=" tri w-[25%]   hover:text-green-500  active:text-green-300" href="">1ER TRIMESTRE</a>
+                <a id="tri2"  class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="">2DO TRIMESTRE</a>
+                <a id="tri3" class=" tri w-[25%]  hover:text-green-500  active:text-green-300" href="">3ER TRIMESTRE</a>
+                <a id="tri4" class=" tri w-[25%] hover:text-green-500   active:text-green-300" href="">4TO TRIMESTRE</a>
                 
             </div>
+            </form>
             <div class="border-x-2">
                 <div class="cv">
                     <p class=" ml-6">I. Información contable:</p>
@@ -124,7 +132,7 @@
             </div>
             <div class="border-x-2 border-b-2 w-[100%] h-[60vh] pt-7">
              
-             
+          
              
         </div>
 
@@ -144,28 +152,69 @@
 </body>
 <script>
         function incrementYear() {
-            var yearInput = document.getElementById('year');
-            yearInput.value = parseInt(yearInput.value) + 1;
-            submitForm();
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            let yearInput = document.getElementById('year');
+            if (yearInput.value<currentYear){
+                yearInput.value = parseInt(yearInput.value) + 1;
+                const yearValueElement = document.getElementById('yearValue');
+                yearValueElement.textContent = yearInput.value;
+                console.log(yearValueElement.textContent);
+                submitForm();
+            }
+            else{
+                yearInput.value = parseInt(currentYear);
+                const yearValueElement = document.getElementById('yearValue');
+                yearValueElement.textContent = yearInput.value;
+                console.log(yearValueElement.textContent);
+                submitForm();
+            }
+     
+            
         }
 
         function decrementYear() {
-            var yearInput = document.getElementById('year');
-            yearInput.value = parseInt(yearInput.value) - 1;
-            submitForm();
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            let yearInput = document.getElementById('year');
+            if (yearInput.value<=currentYear){
+                yearInput.value = parseInt(yearInput.value) - 1;
+                const yearValueElement = document.getElementById('yearValue');
+                yearValueElement.textContent = yearInput.value;
+                console.log(yearValueElement.textContent);
+                submitForm();
+            }
+            else{
+                yearInput.value = parseInt(currentYear);
+                const yearValueElement = document.getElementById('yearValue');
+                yearValueElement.textContent = yearInput.value;
+                console.log(yearValueElement.textContent);
+                submitForm();
+            }
+            
         }
 
         function submitForm() {
-            document.getElementById('LeyContabilidad').submit();
+            let tri = document.getElementById('trimestreInput');
+            document.getElementById('yearForm').submit();
         }
 
     </script>
     <script>
         $(document).ready(function(){
-            /*
+            let tri = document.getElementById('trimestreInput');
+            tri.value=1;
+
             let todos=$('.tri')
             $('#tri1').click(function(){
-                <div class=" bg-green-800 w-[25%] h-[4px] -mt-1 rounded-lg transition-transform" id="barra"></div>
+                event.preventDefault();
+                let yearInput = document.getElementById('year');
+                let tri = document.getElementById('trimestreInput');
+                tri.value=1;
+                document.getElementById('yearForm').submit();
+
+
+                /*
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -178,13 +227,22 @@
                     'margin-left': '0px'
                     
                 }, 100);
+                */
                       
             });
+            
             $('#tri2').click(function(){
                 
+                event.preventDefault();
+                let yearInput = document.getElementById('year');
+                let tri = document.getElementById('trimestreInput');
+                tri.value=2;
+                document.getElementById('yearForm').submit();
+
+                /*
                 let moveButton = $(this);
                 let moveMe = $('#barra');
-                
+                <div class=" bg-green-800 w-[25%] h-[4px] -mt-1 rounded-lg transition-transform" id="barra"></div>
                 todos.removeClass('text-green-800');
                 this.classList.add('text-green-800');
                 
@@ -192,10 +250,17 @@
 
                 moveMe.animate({
                     'margin-left': '25%'
-                }, 100);       
+                }, 100);
+                */       
             });
             $('#tri3').click(function(event){
-               
+                event.preventDefault();
+                let yearInput = document.getElementById('year');
+                let tri = document.getElementById('trimestreInput');
+                tri.value=3;
+                document.getElementById('yearForm').submit();
+
+                /*
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -204,10 +269,17 @@
 
                 moveMe.animate({
                     'margin-left': '50%'
-                }, 100);       
+                }, 100);     
+                */  
             });
             $('#tri4').click(function(event){
-                
+                event.preventDefault();
+                let yearInput = document.getElementById('year');
+                let tri = document.getElementById('trimestreInput');
+                tri.value=4;
+                document.getElementById('yearForm').submit();
+
+                /*
                 let moveButton = $(this);
                 let moveMe = $('#barra');
 
@@ -217,8 +289,9 @@
                 moveMe.animate({
                     'margin-left': '75%'
                 }, 100);       
+                */
             });
-            */
+            
              
             
         });

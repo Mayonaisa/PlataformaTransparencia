@@ -22,12 +22,15 @@ session_start();
             <form id='subir' method="POST" action="{{route('guardararchivo')}}" enctype="multipart/form-data">
             @csrf
                 <select class=" w-[420px]" name="option" id="option" required class="">
-                    
+                    @foreach ($contDoc as $Doc ){
+                        <option value="{{$Doc->id}}">{{$Doc->nombre}}</option>
+                    }
+                    @endforeach
                 </select>
             </div>
         </section>
         
-        <input type="hidden" name="fraccion_id" id="fraccion_id" value="">
+        <input type="hidden" name="contDoc" id="contDoc" value="">
          <input type="hidden" name="articulo" id="articulo" value="">
 
         <section class="flex flex-col gap-5">
@@ -39,16 +42,37 @@ session_start();
             </div>
         
             <div class="mt-5">
-            <label for="fracc" class="text-2xl font-bold text-gray-400">Título</label><br>
+            <label for="fracc" class="text-2xl font-bold text-gray-400">Nombre</label><br>
             <input type="text" name="titulo" class=" w-[19rem]" id="titulo" required>
             </div>
 
             <div class=" mt-1">
             <label for="Desc" class="text-2xl font-bold text-gray-400">Nota (opcional)</label><br>
-            <input type="text" name="descripcion" class=" w-[19rem]" id="descripcion" required>
+            <input type="text" name="descripcion" class=" w-[19rem]" id="descripcion">
             </div>
+            <div class=" flex gap-4">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-400">Trimestre</h1>
+                    <select class=" w-[70px] mt-1" name="option" id="option" required class="">
+                            <option value="trimestre1">1</option>
+                            <option value="trimestre2">2</option>
+                            <option value="trimestre3">3</option>
+                            <option value="trimestre4">4</option>
+                        </select>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-400">Año</h1>
+                    <input class=" mt-1 w-[100px]  border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="number" id="year" name="year" value="2023">
+                </div>
+                <div class="">
+                    <h1 class="text-xl font-bold text-gray-400">Hipervinculo</h1>
+                    <input class=" ml-[44%] mt-4" type="checkbox" name="hipervinculo" id="hipervinculo">
+                </div>
+                
+            </div>
+            
             @csrf
-            <div id="divSubir" class="flex flex-col items-center mt-5">
+            <div id="divSubir" class="flex flex-col items-center">
                 <label for="guardado" class="text-xl font-bold text-gray-400">Subir</label>
                 <input type="image" src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]"  value="" name="guardado">
             </div>
@@ -57,7 +81,6 @@ session_start();
         </section>
     </main>
     <script>
-        
 
         const form = document.getElementById('subir');
         const divSubir = document.getElementById('divSubir');
