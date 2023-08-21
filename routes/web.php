@@ -58,17 +58,14 @@ Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name(
 Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
 //rechazar---------------------------------------------------------------------------------
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
-<<<<<<< HEAD
 //hipervinculo-----------------------------------------------------------------------------
 Route::post('/hiper', [AprobarController::class,'hiper'])->name('hiper');
 //ver hipervinculos------------------------------------------------------------------------
 Route::post('/hipervinculo', [FraccionesController::class,'hipervinculo'])->name('hipervinculo');
-=======
 //Descargar acuseAcuse---------------------------------------------------------------------------------
 Route::get('/Acuse/{id}', [AprobarController::class,'Acuse'])->name('Acuse');
 //Ruta para ver el diseño del acuse
 Route::get('/Comprobante/{id}', [AprobarController::class,'mostrarAcuse'])->name('Comprobante');
->>>>>>> ulises/Alan
 
 
 // Route::prefix('ContabilidadPortal')
