@@ -10,61 +10,113 @@ use Illuminate\Support\Carbon;
 
 class LeyContabilidadController extends Controller
 {
-    function change_year()
+    function cambiarAño(Request $request)
     {
+
+        $trimestre = $request['trimestre'];
+        $año = $request['year'];
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->where('cont_obligaciones.trimestre', $trimestre)
+        ->where('cont_obligaciones.año', $año)
+        ->where('cont_obligaciones.estado', "aprobado")
+        ->where('cont_obligaciones.hipervinculo', "N")
+        ->orderBy('cont_documentos.id')
+        ->get();
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','aprobado')->where('hipervinculo','N');
         
-    } 
-    function mostrar()
-    {   
-        $añoActual = Carbon::now()->year;
-        $ContDocu=contDocumento::get();
-        $trimestre = 1;
-        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
-        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$añoActual);
-        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador]);
-    }
-    function trimestre($trimestre)
-    {
-        $añoActual = Carbon::now()->year;
-        $ContDocu=contDocumento::get();
-        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
-        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$añoActual);
-        //$Obligaciones=contObligacion::buscarPorTrimestre($trimestre);
         if ($obligacionCont==null){
             $obligacionCont= new Obligacion();
         }
-        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador]);
+        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año]);
+
     }
+    function aprobarAño(Request $request)
+    {
+        $trimestre = $request['trimestre'];
+        $año = $request['year'];
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->where('cont_obligaciones.trimestre', $trimestre)
+        ->where('cont_obligaciones.año', $año)
+        ->where('cont_obligaciones.estado', "subido")
+        ->orderBy('cont_documentos.id')
+        ->get();
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
+        if ($obligacionCont==null){
+            $obligacionCont= new Obligacion();
+        }
+        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año ]);
+    }  
+    function mostrar()
+    {   
+        $año = Carbon::now()->year;
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->get();
+        $trimestre = 1;
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','aprobado');
+        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año ]);
+    }
+    /*
+    function trimestre($trimestre)
+    {
+        $año = 2023;
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->where('cont_obligaciones.trimestre', $trimestre)
+        ->where('cont_obligaciones.año', $año)
+        ->orderBy('cont_documentos.id')
+        ->get();
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','aprobado');
+        if ($obligacionCont==null){
+            $obligacionCont= new Obligacion();
+        }
+        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año]);
+    }
+    function trimestreCont($trimestre, Request $request)
+    {
+        $año = $request['year'];
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->where('cont_obligaciones.trimestre', $trimestre)
+        ->where('cont_obligaciones.año', $año)
+        ->orderBy('cont_documentos.id')
+        ->get();
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
+        if ($obligacionCont==null){
+            $obligacionCont= new Obligacion();
+        }
+        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año]);
+    }
+    */
     function mostrarAprobar()
     {   
-        $añoActual = Carbon::now()->year;
-        $ContDocu=contDocumento::all();
+        $año = Carbon::now()->year;
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->get();
         $trimestre = 1;
-        $obligacionCont=contObligacion::all()->where('trimestre',$trimestre);
-        $resultado = [
-            'obligacionCont' => $obligacionCont,
-            'documentoCont' => $ContDocu,
-        ];
-        return view('aprobarContable',['resultado'=>$resultado]);
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
+        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador, 'año'=>$año]);
+        
     }
     function mostrarCargar()
     {   
-        // $departamento = Fragmento::distinct()
-        // ->select('fragmentos.nombre')
-        // ->from('fragmentos')
-        // ->join('users','fragmentos.id','=','users.fragmento')
-        // ->where('users.id',Auth::id())
-        // ->first();
-        // $fracciones = Fraccion::distinct()
-        // ->select('fracciones.nombre', 'fracciones.id')
-        // ->join('asig_frags', 'fracciones.id', '=', 'asig_frags.idfraccion')
-        // ->join('users', 'asig_frags.idfragmento', '=', 'users.fragmento')
-        // ->where('users.id', Auth::id())
-        // ->where('fracciones.articulo',Session::get('ley'))
-        // ->get();
-        // return view('CargarFraccion', compact('fracciones','departamento'));
-        
-        return view('CargarContable');
+        $contDoc=contDocumento::all();
+        return view('CargarContable',['contDoc'=>$contDoc]);
     }
     public function desplegar(Request $request)
     {

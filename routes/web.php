@@ -19,6 +19,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\SubirObligacionController;
+use App\Models\contObligacion;
+use App\Models\Obligacion;
 use Illuminate\Support\Carbon;
 
 /*
@@ -52,15 +54,21 @@ Route::post('/desplegar', [FraccionesController::class,'desplegar'])->name('desp
 //descarga---------------------------------------------------------------------------------
 Route::get('/descarga/{id}', [DescargaController::class,'descargar_pdf'])->name('descargarpdf');
 
-
 //aprovar----------------------------------------------------------------------------------
 Route::get('/aprobar/{id}', [AprobarController::class,'aprobar'])->name('aprobar');
 //rechazar---------------------------------------------------------------------------------
 Route::get('/rechazar/{id}', [AprobarController::class,'rechazar'])->name('rechazar');
+<<<<<<< HEAD
 //hipervinculo-----------------------------------------------------------------------------
 Route::post('/hiper', [AprobarController::class,'hiper'])->name('hiper');
 //ver hipervinculos------------------------------------------------------------------------
 Route::post('/hipervinculo', [FraccionesController::class,'hipervinculo'])->name('hipervinculo');
+=======
+//Descargar acuseAcuse---------------------------------------------------------------------------------
+Route::get('/Acuse/{id}', [AprobarController::class,'Acuse'])->name('Acuse');
+//Ruta para ver el diseño del acuse
+Route::get('/Comprobante/{id}', [AprobarController::class,'mostrarAcuse'])->name('Comprobante');
+>>>>>>> ulises/Alan
 
 
 // Route::prefix('ContabilidadPortal')
@@ -126,35 +134,37 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    //consultar fracciones---------------------------------------------------------------
-    // Route::get('/PortalFracc',function()
-    // {
-    //     return view('ConsultarFracciones');
-    // });
-    // Route::get('/PortalFracc/{articulo}', [FraccionesController::class,'mostrarFracciones']);
-    //subir fracciones---------------------------------------------------------------
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-    // Route::get('/PortalPrincipal',function()
-    // {
-    //     return view('PortalPrincipal');
-    // });
-    //Route::get('/PortalPrincipal',[UsuarioController::class, 'cargarUsuario']);
+
     Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
     ->group(function()
     {
         Route::get('/', 'mostrar')->name('mostrar');
-        Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        
+        //Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
         Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
+        Route::post('año',[LeyContabilidadController::class,'cambiarAño'])->name('cambiarAño');
         Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+
+        Route::prefix('AprobarContabilidad')
+        ->group(function()
+        {
+            //Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestreCont'])->name('trimestreCont');
+            Route::get('/aprobarCont/{id}', [AprobarController::class,'aprobarCont'])->name('aprobarCont');
+            Route::get('/rechazarCont/{id}', [AprobarController::class,'rechazarCont'])->name('rechazarCont');
+            Route::get('/AcuseCont/{id}', [AprobarController::class,'AcuseCont'])->name('AcuseCont');
+            Route::post('aprobarAño',[LeyContabilidadController::class,'aprobarAño'])->name('aprobarAño');
+            
+
+        });
         
 
     });
+    
 });
 
 require __DIR__.'/auth.php';

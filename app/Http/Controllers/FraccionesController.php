@@ -23,15 +23,6 @@ class FraccionesController extends Controller
         ->from('fracciones')
         ->where('fracciones.articulo',$articulo)
         ->get();
-        // $nombre = array("adaw", "adwd", "adwd", "awdwad");
-        // $id = array(1, 2, 3, 4);
-        // $algo = "no";
-        // if (Session::has('ley')) {
-        //     $algo = "si";
-        // }
-        // $variablesDeSesion = Session::all();
-
-        // $fracciones = array_keys($variablesDeSesion);
 
         if (Auth::id() != null) {
             $usuario = User::distinct()
@@ -51,7 +42,6 @@ class FraccionesController extends Controller
     }
     public function RevisarFracc() //prueba
     {
-        //$fracciones = Fraccion::all();
         $fracciones = Fraccion::distinct()
         ->select('fracciones.nombre', 'fracciones.id')
         ->join('asig_frags', 'fracciones.id', '=', 'asig_frags.idfraccion')
