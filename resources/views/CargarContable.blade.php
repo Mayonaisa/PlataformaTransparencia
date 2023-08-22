@@ -22,7 +22,7 @@ session_start();
             <form id='subir' method="POST" action="{{route('guardararchivo')}}" enctype="multipart/form-data">
             @csrf
                 <select class=" w-[420px]" name="option" id="option" required class="">
-                    @foreach ($contDoc as $Doc ){
+                    @foreach ($contDoc as $key=>$Doc ){
                         <option value="{{$Doc->id}}">{{$Doc->nombre}}</option>
                     }
                     @endforeach
@@ -31,7 +31,6 @@ session_start();
         </section>
         
         <input type="hidden" name="contDoc" id="contDoc" value="">
-         <input type="hidden" name="articulo" id="articulo" value="">
 
         <section class="flex flex-col gap-5">
         <h1 class=" border-2 text-green-700 text-center w-70"></h1>
@@ -42,8 +41,8 @@ session_start();
             </div>
         
             <div class="mt-5">
-            <label for="fracc" class="text-2xl font-bold text-gray-400">Nombre</label><br>
-            <input type="text" name="titulo" class=" w-[19rem]" id="titulo" required>
+            <label for="nombre" class="text-2xl font-bold text-gray-400">Nombre</label><br>
+            <input type="text" name="nombre" class=" w-[19rem]" id="nombre" required>
             </div>
 
             <div class=" mt-1">
@@ -53,16 +52,16 @@ session_start();
             <div class=" flex gap-4">
                 <div>
                     <h1 class="text-xl font-bold text-gray-400">Trimestre</h1>
-                    <select class=" w-[70px] mt-1" name="option" id="option" required class="">
-                            <option value="trimestre1">1</option>
-                            <option value="trimestre2">2</option>
-                            <option value="trimestre3">3</option>
-                            <option value="trimestre4">4</option>
+                    <select class=" w-[70px] mt-1" name="trimestre" id="trimestre" required class="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                 </div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-400">Año</h1>
-                    <input class=" mt-1 w-[100px]  border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="number" id="year" name="year" value="2023">
+                    <input class=" mt-1 w-[100px]  border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="number" id="año" name="año" value="2023">
                 </div>
                 <div class="">
                     <h1 class="text-xl font-bold text-gray-400">Hipervinculo</h1>
@@ -85,12 +84,10 @@ session_start();
         const form = document.getElementById('subir');
         const divSubir = document.getElementById('divSubir');
         const selectFraccion = document.getElementById('option');
-        const fraccionIdInput = document.getElementById('fraccion_id');
-        const fraccionArt = document.getElementById('articulo');
+        const fraccionIdInput = document.getElementById('contDoc');
         divSubir.addEventListener('click', function(event) {
         if (event.target.nodeName === 'INPUT') {
             fraccionIdInput.value = selectFraccion.value;
-            fraccionArt.value = sessionStorage.getItem('ley');
             event.preventDefault();
             form.submit();
         }

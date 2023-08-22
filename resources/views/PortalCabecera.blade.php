@@ -15,11 +15,13 @@
             <p> ALCANTARILLADO Y SANEAMIENTO DE LA PAZ</p>
         </div>
         </div>
+        @if(Session::has('rol') && Session::get('rol') < 6)
+            <form class=" mt-5 mr-16" method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class=" "  type="submit">Cerrar sesión</button>
+            </form>
+            @endif
         
-        <form class=" mt-5 mr-16" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class=" "  type="submit">Cerrar sesión</button>
-        </form>
     </div>
 </body>
 </html>

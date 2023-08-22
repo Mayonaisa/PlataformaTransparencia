@@ -38,19 +38,18 @@ class DescargaController extends Controller
         ->from('cont_obligaciones')
         ->where('id',$id)
         ->first();
+        $nombreArchivo = $id .'~'.($Contobligacion->archivo);
 
-
-        $file = storage_path('app/'.($Contobligacion->direccion).'/'.($Contobligacion->archivo));
-        $dir = 'app/'.($Contobligacion->direccion).'/'.($Contobligacion->archivo);
+        $file = storage_path('app/'.($Contobligacion->direccion).'/'.($nombreArchivo));
         if (file_exists($file)) {
-            $nombreArchivo = $Contobligacion->archivo;
+           
             $headers = [
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="' . $nombreArchivo . '"',
             ];
 
             //return response()->json(['exito' => 'El archivo  existe.']);
-            return response()->download($file, $nombreArchivo, $headers);
+            return response()->download($file, $Contobligacion->archivo, $headers);
             //return response()->download($file);
         } else {
             return response()->json(['error' => 'El archivo no existe.']);

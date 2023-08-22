@@ -143,13 +143,13 @@
 
         <section class=" mt-20 text-center">
             
-            @if(Session::has('rol') && Session::get('rol') <= 3)
+            @if(Session::has('rol') && (Session::get('rol') == 4 || Session::get('rol') == 5))
                 <div>
                     <p class="text-xl font-bold text-gray-400">subir</p>
                     <a href="{{ route('mostrarCargar') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>
                 </div>
             @endif
-            @if(Session::has('rol') && Session::get('rol') <= 2)
+            @if(Session::has('rol') && Session::get('rol') == 4)
                 <div class="mt-12">
                     <p class="text-xl font-bold text-gray-400">revisar</p>
                     <a href="{{ route('mostrarAprobar') }}"><img src="{{ asset('imagenes/subir.png') }}" class=" w-[4rem] h-[4rem]" alt=""></a>

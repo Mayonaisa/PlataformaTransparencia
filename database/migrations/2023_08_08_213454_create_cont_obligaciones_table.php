@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('notas');
             $table->enum('trimestre',['1','2','3','4'])->default('1');
             $table->string('año');
+            $table->enum('hipervinculo',['Y','N'])->default('N');
             $table->foreignId('fragmento')->default(1)->references('id')->on('fragmentos');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('cont_documento')->references('id')->on('cont_documentos');

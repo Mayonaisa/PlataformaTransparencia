@@ -42,20 +42,19 @@ class GuardarController extends Controller
         ->join('users','fragmentos.id','=','users.fragmento')
         ->where('users.id',Auth::id())
         ->first();
-
         $valor = Session::get('ley');
-
         $obligacion = new Obligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
         $obligacion->nombre = $request['titulo'];
         $obligacion->descripcion = $request['descripcion'];
-        $obligacion->año = 0;
+        //$obligacion->trimestre = 0;
+        $obligacion->año = Carbon::now()->year;
         $obligacion->fragmento = $fragmento->id;
         $obligacion->fraccion = $request['fraccion_id'];
-
         $obligacion->articulo = $request['articulo'];
         $obligacion->user_id = Auth::id();
-        $obligacion->created_at = Carbon::now()->toDateTimeString();
-        $obligacion->updated_at = Carbon::now()->toDateTimeString();
+        $hora = Carbon::now()->toDateTimeString();
+        $obligacion->created_at = $hora;
+        $obligacion->updated_at = $hora;
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
         if($request['check'] != null)
@@ -67,20 +66,31 @@ class GuardarController extends Controller
             $obligacion->hipervinculo = 0;
         }
         $obligacion->save();
-        
+
+        $registro = Obligacion::distinct()
+            ->select('obligaciones.id')
+            ->from('obligaciones')
+            ->where('obligaciones.created_at',$hora)
+            ->first();
+        $id = $registro->id;
+        $nombre;
+        $registro = Obligacion::find($id);
+        if ($registro) {
+            $nombre = $id.'~'.$registro->archivo;
+        }
         
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
             $ruta = $obligacion->direccion;
-
-            $archivo->storeAs($ruta, $request->file('documento')->getClientOriginalName());
+            //$archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
+            $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
+            //$archivo->storeAs($ruta, $nombre);
         }
-
         Session::flash("error","Registro exitoso.");
         return back()->withInput();
-
     }
+
     function guardar_archivoCont(Request $request)
     {
         echo("prueba");
@@ -100,36 +110,55 @@ class GuardarController extends Controller
 
         $obligacion = new contObligacion(); //a lo mejor luego se tiene que modificar la migración para agregar un campo de ruta
         $obligacion->nombre = $request['nombre'];
-        $obligacion->descripcion = $request['notas'];
+        $obligacion->notas = $request['notas'];
         $obligacion->año = $request['año'];
+        $obligacion->trimestre = $request['trimestre'];
         $obligacion->fragmento = $fragmento->id;
-        $documentotipo=contDocumento::first()->where('nombre',$request['contDoc']);
+        $documentotipo=contDocumento::from('cont_documentos')->where('cont_documentos.id',$request['contDoc'])->first();
         
-
-        $obligacion->cont_documento =$documentotipo->id;
+        
+       $obligacion->cont_documento =$documentotipo->id;
+        
         if ($request['hipervinculo']==true){
             $obligacion->hipervinculo="Y";
         }
         else{
             $obligacion->hipervinculo="N";
         }
+        
+        
         $obligacion->user_id = Auth::id();
-        $obligacion->created_at = Carbon::now()->toDateTimeString();
-        $obligacion->updated_at = Carbon::now()->toDateTimeString();
+        $hora = Carbon::now()->toDateTimeString();
+        $obligacion->created_at = $hora;
+        $obligacion->updated_at = $hora;
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo 48/'.($documentotipo->nombre).'/departamento '.$nombre->nombre;
-       $obligacion->save();
-        
+        $obligacion->save();
+        //dump($request['año']);
+
+        $registro = contObligacion::distinct()
+        ->select('cont_obligaciones.id')
+        ->from('cont_obligaciones')
+        ->where('cont_obligaciones.created_at',$hora)
+        ->first();
+        $id = $registro->id;
+        $nombre;
+        $registro = contObligacion::find($id);
+
+        if ($registro) {
+            $nombre = $id.'~'.$registro->archivo;
+        }
         
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
             $ruta = $obligacion->direccion;
 
-            $archivo->storeAs($ruta, $request->file('documento')->getClientOriginalName());
+            $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
         }
 
         Session::flash("error","Registro exitoso.");
+        
         return back()->withInput();
 
     }
