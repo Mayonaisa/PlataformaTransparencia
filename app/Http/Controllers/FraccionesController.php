@@ -98,6 +98,13 @@ class FraccionesController extends Controller
         ->where('fraccion',$id)
         ->where('estado', $tipo)
         ->get();
+        $obligacionhiper = Obligacion::distinct()
+        ->select('id','nombre','descripcion','archivo','updated_at','fragmento')
+        ->from('obligaciones')
+        ->where('fraccion',$id)
+        ->where('estado', $tipo)
+        ->where('hipervinculo','0')
+        ->get();
         $fragmento = Fragmento::distinct()
         ->select('fragmentos.nombre','fragmentos.id')
         ->from('fragmentos')
@@ -108,7 +115,7 @@ class FraccionesController extends Controller
 
         //aprobados
         $aprobado = Obligacion::distinct()
-        ->select('id','nombre','descripcion','archivo','updated_at','fragmento')
+        ->select('id','nombre','descripcion','archivo','updated_at','fragmento','hipervinculo')
         ->from('obligaciones')
         ->where('fraccion',$id)
         ->where('estado', 'aprobado')
@@ -123,11 +130,30 @@ class FraccionesController extends Controller
 
         $resultado = [
             'obligacion' => $obligacion,
+            'obligacionh' => $obligacionhiper,
             'fragmento' => $fragmento,
             'aprobado' => $aprobado,
             'fragaprob' => $fragaprob,
         ];
         
         return response()->json($resultado);
+    }
+    /////////mostrar hipervinculos/////////////////////
+    public function hipervinculo(Request $request)
+    {
+        $id = $request['id'];
+        $fraccion = $request['fraccion'];
+
+        $obligacion = Obligacion::distinct()
+        ->select('id','nombre','descripcion','archivo','updated_at')
+        ->from('obligaciones')
+        ->where('fragmento',$id)
+        ->where('fraccion',$fraccion)
+        ->where('estado','aprobado')
+        ->where('hipervinculo','1')
+        ->get();
+
+        return response()->json($obligacion);
+        //return response()->json(['mensaje' => $fraccion]);
     }
 }

@@ -22,6 +22,7 @@ class RequestGuardar extends FormRequest
             'titulo' => 'required',
             'descripcion' => 'required',
             'articulo' => 'required',
+            'check' => 'nullable',
             'documento' => 'required|file|mimes:pdf,xlsx|max:2048',
         ];
     }

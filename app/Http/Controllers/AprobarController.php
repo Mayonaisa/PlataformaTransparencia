@@ -45,6 +45,18 @@ class AprobarController extends Controller
         $registro->save();
         return Redirect::back();
     }
+    function hiper(Request $request)
+    {
+        $id = $request['id'];
+        $valor = $request['valor'];
+
+        $registro = Obligacion::findOrFail($id);
+        $registro->hipervinculo = $valor;
+        $registro->save();
+        
+        return response()->json(['mensaje' => 'cambio de hipervinculo']);
+    }
+
     function aprobarCont($id)
     {
         $registro = contObligacion::findOrFail($id);

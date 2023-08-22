@@ -58,6 +58,14 @@ class GuardarController extends Controller
         $obligacion->updated_at = Carbon::now()->toDateTimeString();
         $obligacion->archivo = $request->file('documento')->getClientOriginalName();
         $obligacion->direccion = 'articulo '.($obligacion->articulo).'/fraccion '.($obligacion->fraccion).'/departamento '.$nombre->nombre;
+        if($request['check'] != null)
+        {
+            $obligacion->hipervinculo = 1;
+        }
+        else
+        {
+            $obligacion->hipervinculo = 0;
+        }
         $obligacion->save();
         
         
