@@ -13,7 +13,7 @@
 <body>
     <header>
     @include('PortalCabecera')
-    <h1 class="text-5xl font-bold text-green-600 text-center">Ley General de Contabilidad Gubernamental</h1>
+    <h1 class="text-5xl font-bold text-green-600 text-center mt-4">Ley General de Contabilidad Gubernamental</h1>
     </header>
     <main class="flex flex-row mt-10 justify-center gap-10 mr-[120px]">
         <section class="">
