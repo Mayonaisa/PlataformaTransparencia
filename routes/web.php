@@ -135,7 +135,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracc'])->name('RevisarFracciones');
 
-
+    
     Route::prefix('ContabilidadPortal')
     ->controller(LeyContabilidadController::class)
     ->group(function()
