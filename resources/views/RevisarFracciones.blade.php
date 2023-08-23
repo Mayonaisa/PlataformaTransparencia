@@ -187,14 +187,14 @@ session_start();
                       "    </p><a style='padding: 0; color:#16a340;' href='/descarga/"+obli.id+"'>" +
                       obli.archivo +
                       "</a>"+
-                    "</div>"+
-                    "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
-                      "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
-                      "<a class=' w-10 h-10 border-[3px] border-slate-200 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-slate-600 active:bg-slate-300 bg-slate-400 text-white font-bold text-2xl' href='/Acuse/"+obli.id +"'> ?</a>"+
-                    "</div>"+
-                    "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
-                      "<input type='checkbox' data-id='"+obli.id+"' name='check'"+ver+"> Hipervinculo"+
-                    "</div>"+
+                    "</div class=''>"+
+                      "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
+                        "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
+                        "<a class=' w-10 h-10 border-[3px] border-slate-200 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-slate-600 active:bg-slate-300 bg-slate-400 text-white font-bold text-2xl' href='/Acuse/"+obli.id +"'> ?</a>"+
+                      "</div>"+
+                      "<div class='flex  gap-4 justify-center items-center mr-5 ml-auto'>"+
+                        "<input type='checkbox' data-id='"+obli.id+"' name='check'"+ver+"> Hipervinculo"+
+                      "</div>"+
                   "</div>";
                   
                 tabla2.appendChild(fra2);             

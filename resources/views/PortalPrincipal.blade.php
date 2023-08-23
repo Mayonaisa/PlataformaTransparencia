@@ -53,7 +53,7 @@ session_start();
                 <img class=" ml-5" src="{{ asset('imagenes/plataformaTrans.png') }}" alt="">
             </a>
             <a class=" border-2 w-[250px] h-[190px] rounded-[2rem]"  href="/ContabilidadPortal">
-                <h2 class="text-2xl font-bold text-green-600 text-center mt-3 leading-loose">Portal de obligaciones de transparencia</h2>
+                <h2 class="text-2xl font-bold text-green-600 text-center mt-3 leading-loose">Ley General de Contabilidad Gubernamental</h2>
             </a>
         </div>
     </main>

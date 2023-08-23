@@ -7,6 +7,9 @@ use App\Models\Obligacion;
 use App\Models\contDocumento;
 use App\Models\contObligacion;
 use Illuminate\Support\Carbon;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class LeyContabilidadController extends Controller
 {
@@ -54,6 +57,20 @@ class LeyContabilidadController extends Controller
     }  
     function mostrar()
     {   
+        if (Auth::id() != null) {
+            $usuario = User::distinct()
+            ->select('users.rol_id')
+            ->from('users')
+            ->where('users.id',Auth::id())
+            ->first();
+
+            Session::put('rol', $usuario->rol_id);
+        }
+        else
+        {
+            Session::put('rol', 6);
+        }
+
         $año = Carbon::now()->year;
         $ContDocu=ContDocumento::distinct()
         ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')

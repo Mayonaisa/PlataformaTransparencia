@@ -66,21 +66,13 @@ Route::post('/hipervinculo', [FraccionesController::class,'hipervinculo'])->name
 Route::get('/Acuse/{id}', [AprobarController::class,'Acuse'])->name('Acuse');
 //Ruta para ver el diseño del acuse
 Route::get('/Comprobante/{id}', [AprobarController::class,'mostrarAcuse'])->name('Comprobante');
+// Ruta para cambiar el año o trimestre en contabilidad
+Route::post('/ContabilidadPortal/año',[LeyContabilidadController::class,'cambiarAño'])->name('cambiarAño');
+// Ruta para descargar archivos de contabilidad financiera
+Route::get('/ContabilidadPortal/descarga/{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+//contabilidad portal
+Route::get('/ContabilidadPortal', [LeyContabilidadController::class, 'mostrar'])->name('mostrar');
 
-
-// Route::prefix('ContabilidadPortal')
-//     ->controller(LeyContabilidadController::class)
-//     ->group(function()
-//     {
-//         Route::get('/', 'mostrar')->name('mostrar');
-//         Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
-        
-//         Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
-//         Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
-//         Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
-        
-
-//     });
 
     Route::get('/TransparenciaPagina',function()
     {
@@ -103,10 +95,6 @@ Route::get('/Comprobante/{id}', [AprobarController::class,'mostrarAcuse'])->name
         });
         Route::get('/RevisarFracciones', [FraccionesController::class,'RevisarFracciones']);
         //subir fracciones---------------------------------------------------------------
-        // Route::get('/CargarFraccion', function () {
-        //          return view('CargarFraccion');
-        //      })->name('CargarFraccion');
-        // Route::get('/CargarFraccion', [FraccionesController::class,'FraccionesDisp'])->name('CargarDatos');
         Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     });
     
@@ -130,6 +118,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/CargarFraccion', [FraccionesController::class, 'FraccionesDisp'])->name('CargarFraccion');
     
@@ -140,21 +131,18 @@ Route::middleware('auth')->group(function () {
     ->controller(LeyContabilidadController::class)
     ->group(function()
     {
-        Route::get('/', 'mostrar')->name('mostrar');
-        //Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestre'])->name('trimestre');
         Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
         Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
-        Route::post('año',[LeyContabilidadController::class,'cambiarAño'])->name('cambiarAño');
-        Route::get('descarga{id}', [DescargaController::class,'descargarCont_pdf'])->name('descargarContpdf');
+        
 
         Route::prefix('AprobarContabilidad')
         ->group(function()
         {
-            //Route::get('trimestre{trimestre}',[LeyContabilidadController::class,'trimestreCont'])->name('trimestreCont');
             Route::get('/aprobarCont/{id}', [AprobarController::class,'aprobarCont'])->name('aprobarCont');
             Route::get('/rechazarCont/{id}', [AprobarController::class,'rechazarCont'])->name('rechazarCont');
             Route::get('/AcuseCont/{id}', [AprobarController::class,'AcuseCont'])->name('AcuseCont');
             Route::post('aprobarAño',[LeyContabilidadController::class,'aprobarAño'])->name('aprobarAño');
+            Route::post('/guardararchivo', [GuardarController::class,'guardar_archivoCont'])->name('guardararchivo');
             
 
         });
