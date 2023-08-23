@@ -10,6 +10,9 @@ session_start();
     @vite('resources/css/app.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+      <div>
+    @include('PortalCabecera')
+    </div>
 <body class=" w-screen overflow-x-hidden">
     <header class="container mx-auto flex flex-col pt-[100px] gap-9" id ="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>

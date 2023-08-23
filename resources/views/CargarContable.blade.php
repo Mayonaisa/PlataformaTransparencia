@@ -11,6 +11,9 @@ session_start();
 
 </head>
 <body class="container">
+<div>
+    @include('PortalCabecera')
+    </div>
     <header class="mx-auto flex flex-col pt-[100px] gap-9" id="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>
         <h2 class="text-3xl font-bold text-gray-400 pl-[240px]" id="titulo">Articulo 44</h2> {{--luego aquí se va a cambiar para que diga el articulo seleccionado--}}

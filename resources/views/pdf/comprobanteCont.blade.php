@@ -82,12 +82,12 @@
                 Articulo:
                 </td>
                 <td class="datos">
-                {{$obligacion->articulo}}
+                48
                 </td>
             </tr>
             <tr>
                 <td class="campos">
-                Fraccion:
+                Tipo de obligacion:
                 </td>
                 <td class="datos">
                 {{$result}}

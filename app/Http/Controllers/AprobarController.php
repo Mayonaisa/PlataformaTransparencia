@@ -86,22 +86,35 @@ class AprobarController extends Controller
     }
     public function Acuse($id)
     {
+        $usuario = User::distinct()
+        ->select('users.name')
+        ->from('users')
+        ->where('users.id',Auth::id())
+        ->first();
+
         $obligacion=Obligacion::where('id',$id)->first();
         $fraccion=Fraccion::where('id',$obligacion->fraccion)->first();
         $sujeto=Fragmento::where('id',$obligacion->fragmento)->first();
         preg_match('/\b[I|V|X]+/', $fraccion->nombre, $matches);
         $result=$matches[0];
-        $pdf = Pdf::loadView('pdf.comprobante',compact('obligacion','fraccion','sujeto','result'))->setPaper('a4');
+        $pdf = Pdf::loadView('pdf.comprobante',compact('obligacion','fraccion','sujeto','result','usuario'))->setPaper('a4');
         return $pdf->stream('comprobante.pdf');
     }
     public function AcuseCont($id)
     {
+        $usuario = User::distinct()
+        ->select('users.name')
+        ->from('users')
+        ->where('users.id',Auth::id())
+        ->first();
+
         $obligacion=contObligacion::where('id',$id)->first();
         $ContDoc=contDocumento::where('id',$obligacion->cont_documento)->first();
         $sujeto=Fragmento::where('id',$obligacion->fragmento)->first();
         $result=$ContDoc->nombre;
-        $pdf = Pdf::loadView('pdf.comprobante',compact('obligacion','ContDoc','sujeto','result'))->setPaper('a4');
+        $pdf = Pdf::loadView('pdf.comprobanteCont',compact('obligacion','ContDoc','sujeto','result','usuario'))->setPaper('a4');
         
-        return $pdf->stream('comprobante.pdf');
+        return $pdf->stream('comprobanteCont.pdf');
     }
+    
 }

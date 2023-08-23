@@ -81,42 +81,7 @@ class LeyContabilidadController extends Controller
         $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','aprobado');
         return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año ]);
     }
-    /*
-    function trimestre($trimestre)
-    {
-        $año = 2023;
-        $ContDocu=ContDocumento::distinct()
-        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
-        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
-        ->where('cont_obligaciones.trimestre', $trimestre)
-        ->where('cont_obligaciones.año', $año)
-        ->orderBy('cont_documentos.id')
-        ->get();
-        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
-        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','aprobado');
-        if ($obligacionCont==null){
-            $obligacionCont= new Obligacion();
-        }
-        return view('ContabilidadPortal',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año]);
-    }
-    function trimestreCont($trimestre, Request $request)
-    {
-        $año = $request['year'];
-        $ContDocu=ContDocumento::distinct()
-        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
-        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
-        ->where('cont_obligaciones.trimestre', $trimestre)
-        ->where('cont_obligaciones.año', $año)
-        ->orderBy('cont_documentos.id')
-        ->get();
-        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
-        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
-        if ($obligacionCont==null){
-            $obligacionCont= new Obligacion();
-        }
-        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador,'año'=>$año]);
-    }
-    */
+
     function mostrarAprobar()
     {   
         $año = Carbon::now()->year;
@@ -142,21 +107,7 @@ class LeyContabilidadController extends Controller
         $ContDocu=contDocumento::all();
         $obligacionCont=null;
 
-        /*
-        $obligacion = Obligacion::distinct()
-        ->select('id','nombre','descripcion','archivo','updated_at','fragmento')
-        ->from('obligaciones')
-        ->where('fraccion',$id)
-        ->where('estado', $tipo)
-        ->get();
-        $fragmento = Fragmento::distinct()
-        ->select('fragmentos.nombre','fragmentos.id')
-        ->from('fragmentos')
-        ->join('obligaciones','fragmentos.id','=','obligaciones.fragmento')
-        ->where('obligaciones.fraccion',$id)
-        ->where('obligaciones.estado',$tipo)
-        ->get();
-        */
+
 
         $resultado = [
             'obligacionCont' => $obligacionCont,

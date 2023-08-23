@@ -10,6 +10,9 @@ session_start();
     @vite('resources/css/app.css')
 
 </head>
+<div>
+    @include('PortalCabecera')
+    </div>
 <body class="container">
     <header class="mx-auto flex flex-col pt-[100px] gap-9" id="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>

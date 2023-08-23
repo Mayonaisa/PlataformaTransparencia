@@ -10,7 +10,11 @@ session_start();
     @vite('resources/css/app.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body class=" w-screen overflow-x-hidden">
+    <div>
+    @include('PortalCabecera')
+    </div>
     <header class="container mx-auto flex flex-col pt-[100px] gap-9" id="header">
         <h1 class="text-5xl font-bold text-green-600 self-center">Portal de obligaciones de transparencia </h1>
         <h2 class="text-3xl font-bold text-gray-400 pl-[240px]" id="titulo">Articulo 75</h2>{{--luego aquí se va a cambiar para que diga el articulo seleccionado--}}
@@ -38,7 +42,7 @@ session_start();
            
         <section class="ml-[70px]">
         <p class="text-3xl font-bold text-gray-400 ml-[10px] w-18 mb-7 text-center">fraccion seleccionada</p>
-            <div class="grid grid-cols-1 w-[450px] text-center mt-7 border" id="divFrac">
+            <div class="grid grid-cols-1 min-w-[450px] max-w-[600px] text-center mt-7 border" id="divFrac">
                 <div class="border">Seleccionar una Fraccion.</div>
                 {{-- <div class="border">
                     <span class="title">FIIA 2DO TRIM 2023 ABRIL A JUNIO 2023</span>
@@ -48,8 +52,8 @@ session_start();
                 </div> --}}
             </div>
             {{-- aprobadas --}}
-            <div class="grid grid-cols-1 w-[450px] text-center mt-7 border" id="divAprob">
-                <div class="border">Obligaciones aprobadas.</div>
+            <div class=" flex flex-col min-w-[450px] max-w-[600px] text-center mt-7 border" id="divAprob">
+                <div class=" border">Obligaciones aprobadas.</div>
             </div>
         </section>
         
@@ -187,13 +191,13 @@ session_start();
                       "    </p><a style='padding: 0; color:#16a340;' href='/descarga/"+obli.id+"'>" +
                       obli.archivo +
                       "</a>"+
-                    "</div class=''>"+
+                    "</div class=' '>"+
                       "<div class='flex flex-row gap-4 justify-center items-center mr-5 ml-auto'>"+
                         "<a class=' w-11 h-11 border-[3px] border-slate-300 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-red-400 active:bg-red-200 bg-red-300' href='/rechazar/"+obli.id +"'> <img class=' w-5 h-5' src='{{ asset('imagenes/Cancelar.png') }}'' alt=''></a>"+
                         "<a class=' w-10 h-10 border-[3px] border-slate-200 rounded-md flex items-center justify-center hover:border-slate-400 active:border-slate-200 hover:bg-slate-600 active:bg-slate-300 bg-slate-400 text-white font-bold text-2xl' href='/Acuse/"+obli.id +"'> ?</a>"+
-                      "</div>"+
-                      "<div class='flex  gap-4 justify-center items-center mr-5 ml-auto'>"+
-                        "<input type='checkbox' data-id='"+obli.id+"' name='check'"+ver+"> Hipervinculo"+
+                          "<div class='flex justify-center items-center  ml-auto'>"+
+                          "<input type='checkbox' data-id='"+obli.id+"' name='check'"+ver+"> Hipervinculo"+
+                        "</div>"+
                       "</div>"+
                   "</div>";
                   
