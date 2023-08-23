@@ -29,7 +29,7 @@ class GuardarController extends Controller
     }
     function guardar_archivo(RequestGuardar $request)
     {
-        echo("prueba");
+
         $nombre = Fragmento::distinct()
         ->select('fragmentos.nombre')
         ->from('fragmentos')
@@ -79,16 +79,26 @@ class GuardarController extends Controller
             $nombre = $id.'~'.$registro->archivo;
         }
         
+        $registro = Obligacion::distinct()
+            ->select('obligaciones.id')
+            ->from('obligaciones')
+            ->where('obligaciones.created_at',$hora)
+            ->first();
+        $id = $registro->id;
+        $nombre;
+        $registro = Obligacion::find($id);
+        if ($registro) {
+            $nombre = $id.'~'.$registro->archivo;
+        }
+        
         if($request -> hasFile('documento'))
         {
             $archivo = $request->file('documento');
             $ruta = $obligacion->direccion;
-            //$archivo->storeAs($ruta, ($obligacion->nombre).'.pdf');
             $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
-            //$archivo->storeAs($ruta, $nombre);
         }
-        Session::flash("error","Registro exitoso.");
-        return back()->withInput();
+        Session::flash('success', 'Registro exitoso.');
+        return back();
     }
 
     function guardar_archivoCont(Request $request)
@@ -157,10 +167,9 @@ class GuardarController extends Controller
             $archivo->storeAs($ruta, $id.'~'.$request->file('documento')->getClientOriginalName());
         }
 
-        Session::flash("error","Registro exitoso.");
-        
-        return back()->withInput();
-
+        // Si el registro es exitoso
+        Session::flash('success', 'Registro exitoso.');
+        return back();
     }
 
     public function mostrarUsuarios() //prueba

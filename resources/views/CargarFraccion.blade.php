@@ -23,6 +23,14 @@ session_start();
         </div>
     </header>
     <main class=" flex flex-row justify-center gap-[10rem] mx-auto mt-10">
+    @if(Session::has('success'))
+        <div class="bg-green-300 text-green-800 p-3 mb-4" style="position: fixed;
+  width: 30%;
+  height: 10%;
+  top: 0;">
+            {{ Session::get('success') }}
+        </div>
+    @endif
         <section>
             <h1 class="text-3xl font-bold text-gray-400">Fraccion</h1>
             <div class=" w-18">

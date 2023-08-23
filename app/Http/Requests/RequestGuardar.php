@@ -18,10 +18,10 @@ class RequestGuardar extends FormRequest
     public function rules(): array
     {
         return [
-            'fraccion_id' => 'required',
-            'titulo' => 'required',
-            'descripcion' => 'required',
-            'articulo' => 'required',
+            'fraccion_id' => 'required|integer',
+            'titulo' => 'required|string',
+            'descripcion' => 'required|string',
+            'articulo' => 'required|string',
             'check' => 'nullable',
             'documento' => 'required|file|mimes:pdf,xlsx|max:2048',
         ];
