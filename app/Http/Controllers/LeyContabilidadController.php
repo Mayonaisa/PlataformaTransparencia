@@ -48,6 +48,7 @@ class LeyContabilidadController extends Controller
         ->where('cont_obligaciones.estado', "subido")
         ->orderBy('cont_documentos.id')
         ->get();
+        
         $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
         $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
         if ($obligacionCont==null){

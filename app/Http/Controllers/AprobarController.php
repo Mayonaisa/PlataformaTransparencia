@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\contObligacion;
+use Illuminate\Support\Carbon;
 //use Barryvdh\DomPDF\Facade as PDF; En caso de que no jale el anterior en laragon 5.1
 
 class AprobarController extends Controller
@@ -34,6 +35,7 @@ class AprobarController extends Controller
         $registro->estado = 'aprobado';
 
         $registro->save();
+
         //return $this->mostrar();
         return Redirect::back();
     }
@@ -63,8 +65,18 @@ class AprobarController extends Controller
         $registro->estado = 'aprobado';
 
         $registro->save();
+
+        $año = Carbon::now()->year;
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->get();
+        $trimestre = 1;
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
+
         //return $this->mostrar();
-        return Redirect::back();
+        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador, 'año'=>$año]);
     }
     function rechazarCont($id)
     {
@@ -72,7 +84,17 @@ class AprobarController extends Controller
         $registro->estado = 'rechazado';
 
         $registro->save();
-        return Redirect::back();
+        $año = Carbon::now()->year;
+        $ContDocu=ContDocumento::distinct()
+        ->select('cont_documentos.id', 'cont_documentos.nombre', 'cont_documentos.tipo', 'cont_documentos.created_at')
+        ->join('cont_obligaciones', 'cont_documentos.id', '=', 'cont_obligaciones.cont_documento')
+        ->get();
+        $trimestre = 1;
+        $contador=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u'];
+        $obligacionCont=contObligacion::get()->where('trimestre',$trimestre)->where('año',$año)->where('estado','subido');
+
+        //return $this->mostrar();
+        return view('aprobarContable',['obligacionCont'=>$obligacionCont,'documentoCont'=>$ContDocu,'contLetras'=>$contador, 'año'=>$año]);
     }
     public function mostrarAcuse(Request $request)
     {

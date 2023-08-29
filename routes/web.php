@@ -133,7 +133,6 @@ Route::middleware('auth')->group(function () {
     {
         Route::get('CargarContabilidad',[LeyContabilidadController::class,'mostrarCargar'])->name('mostrarCargar');
         Route::get('AprobarContabilidad',[LeyContabilidadController::class,'mostrarAprobar'])->name('mostrarAprobar');
-        
 
         Route::prefix('AprobarContabilidad')
         ->group(function()
@@ -142,7 +141,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/rechazarCont/{id}', [AprobarController::class,'rechazarCont'])->name('rechazarCont');
             Route::get('/AcuseCont/{id}', [AprobarController::class,'AcuseCont'])->name('AcuseCont');
             Route::post('aprobarAño',[LeyContabilidadController::class,'aprobarAño'])->name('aprobarAño');
-            Route::post('/guardararchivo', [GuardarController::class,'guardar_archivoCont'])->name('guardararchivo');
+            Route::post('/guardararchivoCont', [GuardarController::class,'guardar_archivoCont'])->name('guardararchivoCont');
             
 
         });

@@ -30,7 +30,7 @@ session_start();
         <section>
             <h1 class="text-3xl font-bold text-gray-400">Tipo</h1>
             <div class=" w-18">
-            <form id='subir' method="POST" action="{{route('guardararchivo')}}" enctype="multipart/form-data">
+            <form id='subir' method="POST" action="{{route('guardararchivoCont')}}" enctype="multipart/form-data">
             @csrf
                 <select class=" w-[420px]" name="option" id="option" required class="">
                     @foreach ($contDoc as $key=>$Doc ){
