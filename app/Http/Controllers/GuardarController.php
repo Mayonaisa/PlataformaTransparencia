@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\contDocumento;
 use App\Models\contObligacion;
+use Illuminate\Support\Facades\DB;
 
 class GuardarController extends Controller
 {
@@ -65,7 +66,9 @@ class GuardarController extends Controller
         {
             $obligacion->hipervinculo = 0;
         }
-        $obligacion->save();
+       $obligacion->setConnection('mysql2')->save();
+       //prueba para TADEO
+        //DB::connection('mysql2')->table('obligaciones')->save($obligacion);
 
         $registro = Obligacion::distinct()
             ->select('obligaciones.id')
