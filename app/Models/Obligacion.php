@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Obligacion extends Model
 {
-    protected $table = 'Obligaciones';
+    protected $table = 'obligaciones';
     use HasFactory;
     public $timestamps = false;
     public $incrementing = false;

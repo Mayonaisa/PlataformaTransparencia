@@ -44,7 +44,10 @@ Route::get('/inicio',function()
 {
     return view('inicio');
 })->middleware(['auth'])->name('inicio');
-
+Route::get('/',function()
+{
+    return view('inicio');
+})->middleware(['auth'])->name('inicio');
 Route::post('guardarpdf', [GuardarController::class,'guardar_pdf'])->name('guardar');
 
 //subir archivo----------------------------------------------------------------------------

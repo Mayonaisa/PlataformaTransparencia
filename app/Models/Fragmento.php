@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Fragmento extends Model
 {
-    protected $table = 'Fragmentos';
+    protected $table = 'fragmentos';
     use HasFactory;
     protected $fillable = [
         'nombre',

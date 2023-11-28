@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class contDocumento extends Model
 {
-    protected $table = 'cont_Documentos';
+    protected $table = 'cont_documentos';
     use HasFactory;
 
     protected $fillable = [

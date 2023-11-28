@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class contObligacion extends Model
 {
-    protected $table = 'cont_Obligaciones';
+    protected $table = 'cont_obligaciones';
     use HasFactory;
 
     protected $fillable = [

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Fraccion extends Model
 {
-    protected $table = 'Asig_frags';
+    protected $table = 'asig_frags';
     use HasFactory;
 
     protected $fillable = [
